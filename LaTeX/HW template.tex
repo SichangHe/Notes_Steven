@@ -1,0 +1,41 @@
+% magic comment to use XeLaTeX
+% !TEX program = xelatex
+
+
+\documentclass[12pt]{article}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{paperwidth=180mm,paperheight=2000mm,left=5mm,right=5mm,top=5mm,bottom=5mm}                   % change the paper height every time after the document if finished
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb} %maths
+\usepackage{amsmath} %maths
+\usepackage{multicol}
+\usepackage[UTF8]{ctex}
+\usepackage{tikz}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=2pt] (char) {$#1$};}}
+
+
+
+% Will Robertson's fontspec.sty can be used to simplify font choices.
+% To experiment, open /Applications/Font Book to examine the fonts provided on Mac OS X,
+% and change "Hoefler Text" to any of these choices.
+
+\usepackage{fontspec,xltxtra,xunicode}
+\defaultfontfeatures{Mapping=tex-text}
+\setromanfont[Mapping=tex-text]{Times New Roman}
+\setsansfont[Scale=MatchLowercase,Mapping=tex-text]{Gill Sans}
+%\setmonofont[Scale=MatchLowercase]{Andale Mono}
+
+\title{MATH $202$ HW$n$}
+\author{Sīchàng Hé (Steven)  \qquad 何思畅   \qquad sh623}
+\date{}
+\setlength{\jot}{10pt}
+
+\begin{document}
+\maketitle
+
+
+
+\end{document}
