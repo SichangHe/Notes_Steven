@@ -61,6 +61,8 @@ var1 = command1 ...
 ### matrix
 2D array
 `[r1c1 r1c2 …; r2c1 …]` 
+#### solve $A\vec{x}=B$
+`x = A\B`
 ## variable management
 - display all variable name `who`
   - with information `whos`
