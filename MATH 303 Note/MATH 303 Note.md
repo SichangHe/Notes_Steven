@@ -170,11 +170,108 @@ $|\lambda|\geq1$
 - asymptotically stable
 $|\lambda|\leq1$
 ## Poincaré map
+time-periodic non-autonomous system
 $$
 x'=f(t,x)
 $$
-where $f(t+2\pi,x)=f(t,x)$
+where $f(t+T,x)=f(t,x)$
+### periodic time-shift immunity
+if the solution of$$
+x'=f(t,x),x(0)=x_0
+$$
+is $x_1(t)$
+then the solution of$$
+x'=f(t,x),x(kT)=x_0\quad(k\in\Z)
+$$
+is $x_2(t)=x_1(t-kT)$
+### Poincaré map for the system
 define function $P:\R\rightarrow\R$:
-$\forall\ x_0\in\R$, let $x(t)$ be the solution of ......
+$$
+P(x_0)=x(T)
+\\[12pt]
+\Rightarrow
+x(kT)=P^k(x_0)
+$$
+$\forall\ x_0\in\R$, let $x(t)$ be the solution to$$
+x'=f(t,x),x(0)=x_0
+$$
 ### periodic solution
 fixed point of Poincaré map
+
+# second-order linear equation
+$$
+a(x)y''+b(x)y'+c(x)y=f(x)
+$$
+## homogenous
+$$
+ay''+by'+cy=0
+$$
+### solution
+a linear combination of two solution $y_1(x),y_2(x)$ where $\frac{y_1(x)}{y_2(x)}$ is not constant
+$$
+y(x)=c_1y_1(x)+c_2y_2(x)
+$$
+#### try $y=e^{rx}$
+auxiliary equation
+$$
+ar^2+br+c=0
+$$
+- $\Delta>0$ two distinct real root $r_1,r_2$
+$$
+y=c_1e^{r_1x}+c_2e^{r_2x}
+$$
+- $\Delta=0$ double real root $r_0$
+two solution $y_1=e^{r_0x},y_2=xe^{r_0x}$
+$$
+y=(c_1+c_2x)e^{r_0x}
+$$
+- $\Delta<0$ two complex root $\alpha±i\beta$
+$$
+y=e^{ax}(c_1\cos(\beta x)+c_2\sin(\beta x))
+$$
+alternatively$$
+y=Ae^{\alpha x}\cos(\beta x-\phi)
+$$
+where$$
+A=\sqrt{c_1^2+c_2^2},\phi=\arg(c_1+ic_2)
+$$
+## non-homogenous
+$$
+ay''+by'+cy=f(x)
+$$
+### solution
+- let$$
+y_h(x)=y(x)-y_p(x)
+$$
+then $y_h(x)$ satisfy$$
+ay''+by'+cy=0
+$$
+- find one **specific solution** $y_p(x)$
+therefore$$
+y(x)=c_1y_1(x)+c_2y_2(x)+y_p(x)
+$$
+#### polynomial $f(x)$
+use the degree of $f(x)$ as the degree of the special solution
+#### exponential $f(x)$
+$$
+f(x)=P(x)e^{\lambda x}
+$$
+where $P(x)$ is polynomial
+same with the polynomial method but multiply the same exponential
+- when $\lambda$ is one root of auxiliary equation, multiply the polynomial solution by $x$
+- when $\lambda$ is double root of auxiliary equation, multiply the polynomial solution by $x^2$
+#### trigonometric $f(x)$
+$$
+f(x)=P_1(x)e^{\lambda x}\cos(\mu x)+P_2(x)e^{\lambda x}\sin(\mu x)
+$$
+same with polynomial but degree needs to be the maximum between $P_1(x),P_2(x)$ and need two polynomial
+- when $\lambda+i\mu$ is one root of auxiliary equation, multiply the polynomial solution by $x$
+#### combination of above case
+split $f(x)$ to $f_1(x),\cdots$ that match above case
+### linear differential operator
+given $g(x)$, $L[g](x)$
+$$
+L[g]=ag''+bg'+cg
+$$
+
+# higher order differential equation
