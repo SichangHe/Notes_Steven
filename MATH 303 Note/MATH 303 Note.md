@@ -211,8 +211,8 @@ a linear combination of two solution $y_1(x),y_2(x)$ where $\frac{y_1(x)}{y_2(x)
 $$
 y(x)=c_1y_1(x)+c_2y_2(x)
 $$
-#### try $y=e^{rx}$
-auxiliary equation
+#### auxiliary equation
+under the hood: try $y=e^{rx}$
 $$
 ar^2+br+c=0
 $$
@@ -227,7 +227,7 @@ y=(c_1+c_2x)e^{r_0x}
 $$
 - $\Delta<0$ two complex root $\alpha±i\beta$
 $$
-y=e^{ax}(c_1\cos(\beta x)+c_2\sin(\beta x))
+y=e^{\alpha x}(c_1\cos(\beta x)+c_2\sin(\beta x))
 $$
 alternatively$$
 y=Ae^{\alpha x}\cos(\beta x-\phi)
@@ -246,25 +246,33 @@ $$
 then $y_h(x)$ satisfy$$
 ay''+by'+cy=0
 $$
-- find one **specific solution** $y_p(x)$
+- find one **particular solution** $y_p(x)$
 therefore$$
 y(x)=c_1y_1(x)+c_2y_2(x)+y_p(x)
 $$
+#### linear differential operator
+apply operator $L$ on function $g(x)$
+$$
+L[g](x)=ag(x)''+bg(x)'+cg(x)
+$$
+linear $\Leftarrow$
+- $L[g_1+g_2]=L[g_1]+L[g_2]$
+- $L[\lambda g]=\lambda L[g]$
 #### polynomial $f(x)$
-use the degree of $f(x)$ as the degree of the special solution
+use the degree of $f(x)$ as the degree of the particular solution
 #### exponential $f(x)$
 $$
 f(x)=P(x)e^{\lambda x}
 $$
 where $P(x)$ is polynomial
-same with the polynomial method but multiply the same exponential
+same as the polynomial method but multiply the same exponential
 - when $\lambda$ is one root of auxiliary equation, multiply the polynomial solution by $x$
 - when $\lambda$ is double root of auxiliary equation, multiply the polynomial solution by $x^2$
 #### trigonometric $f(x)$
 $$
 f(x)=P_1(x)e^{\lambda x}\cos(\mu x)+P_2(x)e^{\lambda x}\sin(\mu x)
 $$
-same with polynomial but degree needs to be the maximum between $P_1(x),P_2(x)$ and need two polynomial
+same as polynomial but degree needs to be the maximum between $P_1(x),P_2(x)$ and need two polynomial
 - when $\lambda+i\mu$ is one root of auxiliary equation, multiply the polynomial solution by $x$
 #### combination of above case
 split $f(x)$ to $f_1(x),\cdots$ that match above case
@@ -275,3 +283,54 @@ L[g]=ag''+bg'+cg
 $$
 
 # higher order differential equation
+$n$-th order
+$$
+a_n(x)y^{(n)}+\cdots+a_0(x)y^{(0)}=f(x)
+$$
+where $a_i(x),f(x)$ are continuous on $I\subseteq\R$
+## existence and uniqueness
+above equation with $y(x_0)=y_0,\cdots,y^{(n-1)}(x_0)=y_{n-1}$
+has unique solution $\Leftarrow\forall\ x\in I,a_i(x),f(x)$ are continuous, $a_n(x)≠0$
+### system in matrix form
+$$
+\begin{bmatrix}
+    y_1(x_0)&\cdots&y_n(x_0)\\
+    \vdots&\ddots&\vdots\\
+    y_1^{(n-1)}(x_0)&\cdots&y_n^{(n-1)}(x_0)
+\end{bmatrix}
+\begin{bmatrix}
+    c_1\\\vdots\\c_n
+\end{bmatrix}
+=\begin{bmatrix}
+    y_0\\\vdots\\y_{n-1}
+\end{bmatrix}
+$$
+#### Wronskian
+determinant
+$$
+W[y_1,\cdots,y_n](x_0)=\det M[y_1,\cdots,y_n](x_0)
+$$
+$y_1,\cdots,y_n$ linearly independent in $I$
+$\Leftrightarrow\exist\ x_0\in I,W[y_1,\cdots,y_n](x_0)≠0$
+$\Leftrightarrow\forall\ x\in I,W[y_1,\cdots,y_n](x_0)≠0$
+
+# planar system of differential equation
+$$
+x'=f(x,y)
+y'=g(x,y)
+$$
+with respect to $t$
+## initial value problem
+$$
+x(t_0)=x_0\\
+y(t_0)=y_0
+$$
+- autonomous
+$t$ can start wherever wanted, let $t_0=0$
+## integral curve
+parameterized curve of $(x(t),y(t))$
+## velocity vector
+$$
+\frac{\mathrm{d}}{\mathrm{d}t}(x(t),y(t))=(f(x,y),g(x,y))
+$$
+## phase plane
