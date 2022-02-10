@@ -334,3 +334,133 @@ $$
 \frac{\mathrm{d}}{\mathrm{d}t}(x(t),y(t))=(f(x,y),g(x,y))
 $$
 ## phase plane
+
+## non-autonomous planar system
+$$
+x'=f(x,y,t),y'=g(x,y,t)
+$$
+### periodic time-shift immunity
+similar to periodic time-shift immunity in one dimension
+### Poincaré map
+$P:\R^2\rightarrow\R^2$
+$$
+P(x_0,y_0)=(x(T),y(T))\\[12pt]
+\Rightarrow P^k(x_0,y_0)=(x(kT),y(kT))
+$$
+…
+## forced duffing equation
+$$
+x'=y,y'=-by+x-x^3+F\sin(\gamma t)
+$$
+period $\frac{2\pi}{\gamma}$
+
+# chaos
+sensitive dependence on initial condition
+
+## Poincaré map for autonomous system
+### Henon-Heiles system
+$$
+x_1' = y_1\\
+y_1' = − x_1 − 2x_1x_2\\
+x_2' = y_2\\
+y_2'=−x_1^2 +x_2^2 −x_2
+$$
+
+# linear system
+$$
+\vec x'=A(t)\vec x+\vec f(t)
+$$
+## planar linear system
+$$
+x_1'=a_{11}(t)x_1+a_{12}(t)x_2+f_1(t)\\
+x_2'=a_{21}(t)x_1+a_{22}(t)x_2+f_2(t)
+$$
+where $a_{ij}(t),f_i(t),j,j\in\{1,2\}$ continuous
+$$
+\vec x=\begin{bmatrix}
+    x_1\\x_2
+\end{bmatrix},
+\vec f(t)=\begin{bmatrix}
+    f_1(t)\\f_2(t)
+\end{bmatrix},
+A=\begin{bmatrix}
+    a_{11}(t)&a_{12}(t)\\
+    a_{21}(t)&a_{22}(t)
+\end{bmatrix}
+$$
+## homogeneity
+- $\vec f(t)\equiv\vec0\Rightarrow$ homogeneous
+- otherwise $\Rightarrow$ non-homogeneous
+## convert linear differential equation to linear system
+linear differential equation
+$$
+y^{(n)}+p_{n-1}(t)y^{(n-1)}+\cdots+p_0(t)y=g(t)
+$$
+define
+$$
+x_1=y\\
+x_2=y'\\
+\vdots\\
+x_n=y^{(n-1)}
+$$
+get a linear system
+## existence and uniqueness
+If $A(t)$, $\vec f(t)$ are continuous functions in an interval $I ⊆ R$ and $t_0 ∈ I$ then for any initial vector $\vec x_0 ∈ R_n$ there exists a unique solution of
+$\vec x' = A(t)\vec x + \vec f(t)$ in $I$ that satisfies the initial condition $\vec x(t_0) = \vec x_0$.
+## linearity
+linear combination of solution are also solution
+## linear dependency
+$$
+\exists\ c_1,c_2,\cdots,c_m,\sum_{i=1}^m(c_i^2)≠0,\quad\forall\ t\in I,\quad c_1\vec x_1(t)+\cdots+c_m\vec x_m(t)\equiv0
+$$
+## Wronskian
+for $n$ solution $\vec x_1,\cdots,\vec x_n$
+$$
+X(t)=\begin{bmatrix}
+    \vec x_1&\cdots&\vec x_n
+\end{bmatrix}
+=\begin{bmatrix}
+    x_{1,1}&\cdots&x_{n,1}\\
+    \vdots&\ddots&\vdots\\
+    x_{1,n}&\cdots&\vec x_{n,n}
+\end{bmatrix}\\[12pt]
+W[\vec x_1,\cdots,\vec x_n](t)=\det X(t)
+$$
+### linear dependency and Wronskian
+- solution $\vec x_1(t),\cdots,\vec x_n$ are linearly dependent in $I$
+- $\Leftrightarrow\forall\ t\in I,\quad W[\vec x_1,\cdots,\vec x_n](t)=0$
+- $\Leftrightarrow\exists\ t_0\in I,\quad W[\vec x_1,\cdots,\vec x_n](t_0)=0$
+### fundamental solution and fundamental matrix
+#### fundamental solution
+collection of $n$ *linearly independent* solution $\vec x_1,\cdots,\vec x_n$
+#### fundamental matrix
+corresponding matrix $X(t)=\begin{bmatrix}
+    \vec x_1(t)&\cdots&\vec x_n(t)
+\end{bmatrix}$
+- invertible
+- general solution for the linear system
+$$
+\vec y(t)=c_1\vec x_1(t)+\cdots+c_n\vec x_n(t)
+=X(t)\vec c
+$$
+- $$
+X'(T)=A(t)X(t)
+$$
+- solution for the initial value problem with $\vec x(t_0)=\vec x_0$
+$$
+\vec y(t)=X(t)X(t_0)^{-1}\vec x_0
+$$
+- $\forall\ Y(t)$ that is another fundamental matrix
+$$
+\exists\ C,\quad Y(t)=X(t)C
+$$
+    - $\det C≠0$
+- $$
+\forall\ C,\det C≠0,\quad X(t)C\text{ is a fundamental matrix}
+$$
+- let $Y(t)=X(t)X(t_0)^{-1}$, then $Y(t_0)\vec x_0=0$
+$$
+\vec y(t)=Y(t)\vec x_0
+$$
+
+---
