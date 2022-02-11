@@ -68,6 +68,9 @@ $$
 \\[12pt]
 x_i=\frac{d_i-\sum_{j=i+1}^na_{ij}x_j}{a_{ii}}
 $$
+### triangular matrix
+- inverse of lower (upper) triangular matrix is still lower (upper) triangular
+- multiplication of lower (upper) triangular matrix is still lower (upper) triangular
 ### Cholesky decomposition
 symmetric and positive definite matrix
 $$
@@ -89,25 +92,239 @@ solve $x_n$ using the other $x$ and replace it
 # optimization
 ## minimize L2 norm
 $$
-\min_\alpha\lVert A\alpha-\vec b\rVert_F^2
+\min_{\vec\alpha}\lVert A\vec\alpha-\vec b\rVert_F^2
 $$
-## minimax optimization
+## minimax optimization (Chebyshev approximation)
 minimize the maximum absolute error
 $$
-\min_\alpha\max_i|a^i\alpha-b_i|
+\min_{\vec\alpha}\max_i|a^i\vec\alpha-b_i|
 $$
 or minimize the maximum relative error$$
-\min_\alpha\max_i\left|\frac{a^i\alpha-b_i}{b_i}\right|
+\min_{\vec\alpha}\max_i\left|\frac{a^i\vec\alpha-b_i}{b_i}\right|
 $$
 ### solving minimax
 convert to $$
-\min_{\alpha,t}t
+\min_{\vec\alpha,t}t
 $$
-such that $|a^i\alpha-b_i|≤t\quad\forall\ i$
+such that $|a^i\vec\alpha-b_i|≤t\quad\forall\ i$
 ## over-fitting
 ### regularization
 *simple* model is better
-$|\alpha|$ should be small
+$|\vec\alpha|$ should be small
 $$
-\min_\alpha\lVert A\alpha-\vec b\rVert_F^2+\lambda\lVert\alpha\rVert_F^2
+\min_{\vec\alpha}\lVert A\vec\alpha-\vec b\rVert_F^2+\lambda\lVert\vec\alpha\rVert_F^2
 $$
+
+# convex
+## mathematical optimization
+minimize objective (/target/ cost) function $f_0(x)$
+subjected to constraint function $f_i(x)≤b_i\quad\forall\ i=1,\cdots,m$
+find **optimal solution** $x^*$
+## convex optimization
+$$
+f_i(\alpha x+\beta y)≤\alpha f_i(x)+\beta f_i(y)
+\quad\text{if }\alpha+\beta=1,\alpha,\beta≥0
+$$
+### positive semi-definite (PSD) matrix
+positive semi-definite matrix $A_Q$ (sometimes denoted as $A_Q≥0$)
+$$
+\forall\ \vec x,\ \vec x^TA_Q\vec x≥0
+$$
+#### convert to symmetric matrix
+$$
+\vec x^TA_Q\vec x=\vec x^T\left(\frac{A_Q+A_Q^T}{2}\right)\vec x
+$$
+where $\frac{A_Q+A_Q^T}{2}$ is always symmetric
+we consider $A_Q$ symmetric from now on
+#### eigenvalue decomposition
+eigenvalue $\lambda_i$ of $A_Q$
+$$
+A_Q≥0\Leftrightarrow\forall\ i,\ \lambda_i≥0
+$$
+let $\lambda_1≥\cdots≥\lambda_n$, eigenvector $V_i$
+$A_Q$ symmetric $\Rightarrow\lambda_i$ real, $V$ orthonormal
+$$
+A_QV_i=\lambda_iV_i\\[12pt]
+\Sigma=\begin{bmatrix}
+    \lambda_1&&\\
+    &\ddots&\\
+    &&\lambda_n
+\end{bmatrix}\\[12pt]
+\Rightarrow A_Q=V\Sigma V^T\\
+$$
+#### non-negative quadratic function
+$$
+\forall\ X,\ X^TA_QX+B_Q^TX+C_Q≥0\\[12pt]
+\Rightarrow A_Q≥0
+$$
+- quadratic coefficient for least squares error function is positive semi-definite
+- the function is convex $\Leftrightarrow$ symmetric $A_Q≥0$
+## convex function
+$$
+\forall\ \vec x_1,\vec x_2,\ 0≤\alpha≤1,\ 
+f[\alpha\vec x_1+(1-\alpha)\vec x_2]≤\alpha f(\vec x_1)+(1-\alpha)f(\vec x_2)
+$$
+- concave function
+negative convex function
+### Jensen's inequality
+if $f$ is convex
+$$
+\forall\ 0≤\theta≤1\quad f(\theta x+(1-\theta)y)≤\theta f(x)+(1-\theta)f(y)
+$$
+- extension
+$$
+f(E[z])≤E[f(z)]
+$$
+### first-order condition
+differentiable $f$ is convex
+$$
+\Leftrightarrow f(y)≥f(x)+\nabla f(x)^T(y-x)
+$$
+- first-order approximation of $f$ is global under-estimator
+- $x$ is a global minimizer of the function $f$ when $\nabla f(x)=0,f(y)≥f(x)$
+### second-order sufficient condition
+$$
+\forall\ \vec x,\nabla^2f(\vec x)≥0
+$$
+Hessian matrix is positive semi-definite $\Rightarrow f$ is convex
+#### Hessian matrix
+$$
+\nabla^2f(\vec x)
+=\begin{bmatrix}
+    \displaystyle\frac{\partial^2f}{\partial x_1^2}&\displaystyle\frac{\partial^2f}{\partial x_1\partial x_2}&\cdots\\[12pt]
+    \displaystyle\frac{\partial^2f}{\partial x_1\partial x_2}&\displaystyle\frac{\partial^2f}{\partial x_2^2}&\cdots\\[12pt]
+    \vdots&\vdots&\ddots
+\end{bmatrix}
+$$
+### prove convex function
+- definition
+- second-order sufficient condition $\nabla^2 f≥0$
+
+if neither work, then first-order condition
+### some convex function
+- one-dimensional
+$$
+bx+c\quad e^{ax}\quad x^a\ (a<0\ or\ a>1,x>0)\quad x\log x\ (x>0)
+$$
+- higher dimension
+$$
+B^TX+C\quad\lVert X\rVert\quad\max(X_1,\cdots,X_N)\quad\log(e^{X_1}+\cdots+d^{X_N})
+$$
+### operation that preserve convexity
+$$
+\alpha f_1\ (\alpha≥0)\quad f_1+f_2\quad f_1(Ax+b)
+$$
+are convex for $f_1,f_2$ convex
+## constrained nonlinear optimization
+$$
+\min_Xf(X)\\
+\text{such that}\left\{\begin{array}{c}
+    g_1(X)≤0\\
+    g_2(X)≤0\\
+    \vdots
+\end{array}\right.
+$$
+### feasible set
+set of all feasible point
+- feasible point
+point $X$ satisfy
+$$
+\left\{\begin{array}{c}
+    g_1(X)≤0\\
+    g_2(X)≤0\\
+    \vdots
+\end{array}\right.
+$$
+- constraint set
+union of domain and feasible set
+- feasible optimization
+feasible set is non-empty
+### convex set
+set $D$
+$$
+\forall\ X_1,X_2\in D,0≤\alpha≤1,\quad\alpha X_1+(1-\alpha)X_2\in D
+$$
+all point between any two point in the set are in the set
+
+- convexity is preserved under intersection
+#### example convex set
+- hyperplane $\{X|B^TX=C\}$
+- polytope $\{X|B^TX≤C\}$
+- ball $\lVert X\rVert_2≤C$
+- positive semi-definite matrix $\{X|X\in\R^{N\times C},X=X^T,X≥0\}$
+#### $\alpha$-sublevel set
+for $f(X)$, $\alpha$-sublevel set
+$$
+\{X|f(X)≤\alpha\}
+$$
+- $f(X)$ is convex $\Rightarrow$ set convex
+### convex optimization
+minimization of a convex cost function over a convex constraint set
+$$
+\min_Xf(X)\\
+\text{such that}\left\{\begin{array}{c}
+    g_1(X)≤0\\
+    g_2(X)≤0\\
+    \vdots
+\end{array}\right.
+$$
+where the constrain set is convex
+- $g_i(X)$ are convex $\Rightarrow$ constrain set is convex
+- concave maximization
+reverse
+#### linear programming
+in **duality**
+
+## duality
+standard form for constrained nonlinear optimization
+$$
+\min_Xf(X)\\
+\begin{align*}
+    \text{such that}\ g_m(X)≤0\ (m=1,\cdots,M)\\
+    h_n(X)=0\ (n=1,\cdots,N)
+\end{align*}
+$$
+### Lagrangian
+$$
+L(X,U,V)=f(X)+\sum_{m=1}^Mu_mg_m(X)+\sum_{n=1}^Nv_nh_n(X)
+$$
+is linearly dependent of $U,V$
+### Lagrange dual function
+$$
+d(U,V)=\inf_XL(X,U,V)
+$$
+is concave
+### dual problem
+$$
+\max_{U,V}d(U,V)
+$$
+such that $U≥0$
+#### weak duality
+#### (lower bound property)
+$$
+f(X^*)≥d(U^*,V^*)
+$$
+- $X^*$ is primal optimum
+- $U^*,V^*$ are dual optimum
+- weak duality hold for any optimization problem
+##### optimal duality gap
+$$
+f(X^*)-d(U^*,V^*)≥0
+$$
+- $d(U^*,V^*)=\infty\Rightarrow f(X^*)=\infty$, primal problem infeasible
+- $f(X^*)=-\infty\Rightarrow d(U^*,V^*)=-\infty$, primal problem unbounded below
+#### strong duality
+$$
+f(X^*)-d(U^*,V^*)=0
+$$
+##### constraint qualification
+condition that guarantee strong duality in convex problem
+- Slater's constrain qualification
+    - strictly feasible$$
+g_m(X)<0\quad(m=1,\cdots,M)\\
+AX=B
+$$
+
+
+
+---
