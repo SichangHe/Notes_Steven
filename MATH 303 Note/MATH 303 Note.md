@@ -197,6 +197,15 @@ x'=f(t,x),x(0)=x_0
 $$
 ### periodic solution
 fixed point of Poincaré map
+## Bernoulli equation
+$$
+\frac{\mathrm{d}y}{\mathrm{d}x}+P(x)y=Q(x)y^n
+$$
+### solution
+substitution
+$$
+v=y^{1-n}
+$$
 
 # second-order linear equation
 $$
@@ -293,6 +302,7 @@ above equation with $y(x_0)=y_0,\cdots,y^{(n-1)}(x_0)=y_{n-1}$
 has unique solution $\Leftarrow\forall\ x\in I,a_i(x),f(x)$ are continuous, $a_n(x)≠0$
 ### system in matrix form
 $$
+M[y_1,\cdots,y_n](x_0)\ \vec c=\vec y_0\\[12pt]
 \begin{bmatrix}
     y_1(x_0)&\cdots&y_n(x_0)\\
     \vdots&\ddots&\vdots\\
@@ -308,7 +318,7 @@ $$
 #### Wronskian
 determinant
 $$
-W[y_1,\cdots,y_n](x_0)=\det M[y_1,\cdots,y_n](x_0)
+W[y_1,\cdots,y_n]=\det M[y_1,\cdots,y_n]
 $$
 $y_1,\cdots,y_n$ linearly independent in $I$
 $\Leftrightarrow\exist\ x_0\in I,W[y_1,\cdots,y_n](x_0)≠0$
