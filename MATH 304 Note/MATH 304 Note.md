@@ -126,7 +126,7 @@ f_i(\alpha x+\beta y)≤\alpha f_i(x)+\beta f_i(y)
 \quad\text{if }\alpha+\beta=1,\alpha,\beta≥0
 $$
 ### positive semi-definite (PSD) matrix
-positive semi-definite matrix $A_Q$ (sometimes denoted as $A_Q≥0$)
+positive semi-definite matrix $A_Q$ (sometimes denoted as $A_Q\succeq 0$)
 $$
 \forall\ \vec x,\ \vec x^TA_Q\vec x≥0
 $$
@@ -139,7 +139,7 @@ we consider $A_Q$ symmetric from now on
 #### eigenvalue decomposition
 eigenvalue $\lambda_i$ of $A_Q$
 $$
-A_Q≥0\Leftrightarrow\forall\ i,\ \lambda_i≥0
+A_Q\succeq0\Leftrightarrow\forall\ i,\ \lambda_i≥0
 $$
 let $\lambda_1≥\cdots≥\lambda_n$, eigenvector $V_i$
 $A_Q$ symmetric $\Rightarrow\lambda_i$ real, $V$ orthonormal
@@ -155,10 +155,10 @@ $$
 #### non-negative quadratic function
 $$
 \forall\ X,\ X^TA_QX+B_Q^TX+C_Q≥0\\[12pt]
-\Rightarrow A_Q≥0
+\Rightarrow A_Q\succeq0
 $$
 - quadratic coefficient for least squares error function is positive semi-definite
-- the function is convex $\Leftrightarrow$ symmetric $A_Q≥0$
+- the function is convex $\Leftrightarrow$ symmetric $A_Q\succeq0$
 ## convex function
 $$
 \forall\ \vec x_1,\vec x_2,\ 0≤\alpha≤1,\ 
@@ -184,7 +184,7 @@ $$
 - $x$ is a global minimizer of the function $f$ when $\nabla f(x)=0,f(y)≥f(x)$
 ### second-order sufficient condition
 $$
-\forall\ \vec x,\nabla^2f(\vec x)≥0
+\forall\ \vec x,\nabla^2f(\vec x)\succeq0
 $$
 Hessian matrix is positive semi-definite $\Rightarrow f$ is convex
 #### Hessian matrix
@@ -298,7 +298,7 @@ is concave
 $$
 \max_{U,V}d(U,V)
 $$
-such that $U≥0$
+such that $U\succeq0$
 #### weak duality
 #### (lower bound property)
 $$
@@ -317,14 +317,128 @@ $$
 $$
 f(X^*)-d(U^*,V^*)=0
 $$
+##### complementary slackness
+- $$
+\sum_{m=1}^Mu_mg_m(X)=0\\[12pt]
+\sum_{n=1}^Nv_nh_n(X)=0
+$$
+- active constraint $u_m^*>0\Rightarrow g_m(X^*)=0$
+- inactive constraint $g_m(X^*)<0\Rightarrow u_m^*=0$
+##### Karush-Kuhn-Tucker (KKT) condition
+- $g_m(X^*)≤0\ (m=1,\cdots,M)$
+- $h_n(X^*)=0\ (n=1,\cdots,N)$
+- $U^*\succeq0$
+- $u^*g_m(X^*)=0\ (m=1,\cdots,M)$
+- $\nabla f(X^*)+\sum_{m=1}^Mu_m\nabla g_m(X^*)+\sum_{n=1}^Nv_n\nabla h_n(X^*)=0$
 ##### constraint qualification
 condition that guarantee strong duality in convex problem
 - Slater's constrain qualification
-    - strictly feasible$$
+  - strictly feasible$$
 g_m(X)<0\quad(m=1,\cdots,M)\\
 AX=B
 $$
+- KKT condition for convex problem
+# unconstrained optimization
+## gradient method
+### one-dimensional
+step size $\lambda^{(k)}>0$
+$$
+\Delta x^{(k)}=x^{(k+1)}-x^{(k)}=-\lambda^{(k)}\left.\frac{\mathrm{d}f}{\mathrm{d}x}\right|_{x^{(k)}}\\[12pt]
+f[x^{(k+1)}]\approx f[x^{(k)}]-\lambda^{(k)}\left.\frac{\mathrm{d}f}{\mathrm{d}x}\right|_{x^{(k)}}^2
+$$
+### N-dimensional
+$$
+X^{(k+1)}=X^{(k)}-\lambda^{(k)}\cdot\nabla f[X^{(k)}]
+$$
+### line search
+optimize step size
+$$
+\min_{\lambda^{(k)}}f(X^{(k)}-\lambda^{(k)}\nabla f[X^{(k)}])
+$$
+#### backtracking line search
+example
+while $f(X^{(k)}-\lambda^{(k)}\nabla f(X^{(k)}))>\alpha\lambda^{(k)}\nabla f^2(x^{(k)})$, $\lambda^{(k)}\times=\beta$
+$(0<\alpha<0.5,0<\beta<1,\lambda^{(0)}=1)$
+## Newton method
+### one-dimensional
+$$
+\Delta x^{(k)}=x^{(k+1)}-x^{(k)}=-\frac{\left.\frac{\mathrm{d}f}{\mathrm{d}x}\right|_{x^{(k)}}}{\left.\frac{\mathrm{d}^2f}{\mathrm{d}x^2}\right|_{x^{(k)}}}\\[12pt]
+$$
+### N-dimensional
+$$
+X^{(k+1)}=X^{(k)}-\left(\nabla^2f(X^{(k)})\right)^{-1}\nabla f(X^{(k)})\\[12pt]
+f[x^{(k+1)}]\approx f[x^{(k)}]-\frac{\lambda^2}{2}
+$$
+where $\lambda^2=\left(\nabla f(X^{(k)})\right)^T\left(\nabla^2f(X^{(k)})\right)^{-1}\nabla f(X^{(k)})$
 
-
+# constrained optimization
+$$
+\min_Xf(X)\\[12pt]
+\text{such that }\begin{cases}
+    g_1(X)≤0\\
+    \vdots
+\end{cases}
+$$
+## Lagrange multiplier
+for equality constraint
+$$
+\min_Xf(X)\\
+\text{such that }g_i(X)=0\quad(i=1,\cdots,p)
+$$
+$\exists$ Lagrange multiplier $\lambda_1,\cdots,\lambda_p$
+$$
+\nabla f(X^*)+\sum_{i=1}^p\lambda_i\nabla g_i(X^*)=0
+$$
+## linear equality constraint
+$$
+\min_Xf(X)\\
+\text{such that }AX=B
+$$
+### eliminate linear equality constraint
+$$
+AX=B\Rightarrow X=FZ+D
+$$
+where $A\in\R^{p\times n},B\in\R^{p\times 1},F\in\R^{n\times(n-p)},Z\in\R^{(n-p)\times 1}$
+- $D$ is a particular solution
+- $F$ is a basis of $\text{Nul}A$
+- $Z$ is any value
+#### subspace reduction
+transform the linear equality constraint to
+$$
+\min_Zf(FZ+D)
+$$
+### optimality for linear constraint
+$$
+\nabla g_i(X)=A(i,:)^T\\[12pt]
+\Rightarrow\nabla f(X^*)+A^TV=0
+$$
+### linear equality constrained quadratic programming
+$$
+\min_X f(X)=\frac{1}{2}X^TQX+R^TX+C\\[12pt]
+\text{such that }AX=B
+$$
+$\nabla f(X)=QX+R$
+#### optimality condition for quadratic programming
+$$
+\begin{bmatrix}
+    Q&A^T\\A&0
+\end{bmatrix}
+\begin{bmatrix}
+    X^*\\V
+\end{bmatrix}
+=\begin{bmatrix}
+    -R\\B
+\end{bmatrix}
+$$
+where $X^*$ is the optimal solution
+$V$ is the vector of Lagrange multiplier
+##### nonlinear optimization given linear constraint
+exchange the term in optimality condition for quadratic programming
+$Q\rightarrow\nabla^2f[X^{(k)}]$
+$X^*\rightarrow\Delta X$
+$R\rightarrow\nabla f[X^{(k)}]$
+$B\rightarrow B-AX^{(k)}$
+update $X^{(k+1)}$ with $\Delta X$
+- even if $X^{(0)}$ is not feasible, after one iteration, $X^{(1)}$ is feasible
 
 ---
