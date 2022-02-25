@@ -881,12 +881,12 @@ solution are closed curve with period $T={2π\over\beta}$
   where $\vec y=\vec x-\vec x_e,\vec g(\vec y):=\vec f(\vec x_e+\vec y)\\[6pt]$
 - almost linear system $\vec x'=\vec f(\vec x)$ at the origin
   - $\vec0$ is an equilibrium of $\vec x'=\vec f(\vec x)$
-  - $A=D\vec f(\vec0)$
   - $\vec f$ is continuous around $\vec0$
-  - $\det A≠0$
   - $$
   \frac{\lVert\vec f(\vec x)-A\vec x\rVert}{\lVert\vec x\rVert}\rightarrow0\text{ as }\lVert\vec x\rVert\rightarrow0
   $$$\Leftarrow\displaystyle\frac{∂f_i}{∂x_j}$ are continuous near $(0,0)\\[12pt]$
+  - $A=D\vec f(\vec0)$
+  - $\det A≠0$
 - jacobian of $\vec f(\vec x)=\begin{bmatrix}
     f_1(x_1,x_2)\\
     f_2(x_1,x_2)
@@ -918,7 +918,7 @@ not stable
 $$
 B_\delta(\vec x)=\{\vec y\in\R^2:\lVert\vec y-\vec x\rVert_2<\delta\}
 $$
-## Hartman-Grobman theorem (linearization theorem)
+## linearization theorem (Hartman-Grobman theorem)
 transform the dynamics of system $\vec x'=\vec f(\vec x)$
 to the dynamics of system $\vec y'=A\vec y$
 where $A=D\vec f(\vec x_e)$
@@ -931,6 +931,167 @@ all eigenvalue have non-zero real part
 #### hyperbolic equilibrium
 equilibrium $\vec x_e$ of $\vec x'=\vec f(\vec x)$
 $D\vec f(\vec x_e)$ is hyperbolic matrix
+
+# energy method
+## mechanical system
+$$
+x'=y\\
+y'=f(x)
+$$
+### potential $U(x)$
+antiderivative of $-f(x)$
+- $U'(x)=-f(x)$
+### energy function
+conserved quantity
+$$
+E(x,y)=\frac{1}{2}y^2+U(x)
+$$
+### level set $E(x,y)=h$
+fix $E(x,y)$ to $h$
+$$
+\Rightarrow y=±\sqrt{2(h-U(x))}
+$$
+- graph of $y$ is only defined where $U(x)≤h$
+- the two parts above and below $x$-axis mirror each other
+- intersection with $x$-axis are where $U(x)=h$
+  - $U'(x_i)≠0\Rightarrow$ curve is vertical at intersection
+- $\displaystyle\frac{\mathrm d|y|}{\mathbb{d}(h-U(x))}>0$
+### potential plane
+$x,U(x)$-plane
+### equilibrium $(x_e,0)$
+$$
+f(x_e)=0,\quad y=0
+$$
+- $U'(x_e)=0$
+### linearization
+$f(x),f'(x)$ are continuous near $x_e$
+$U''(x_e)≠0$
+$\Rightarrow$ system is almost linear at equilibrium $(x_e,0)$
+- Jacobian corresponding to $\vec F=\begin{bmatrix}
+    y\\f(x)
+\end{bmatrix}$
+$$
+D\vec F(x,y)=\begin{bmatrix}
+    0&1\\-U''(x)&0
+\end{bmatrix}
+$$
+- $U''(x_e)>0$, minimum at $x_e$
+linear system is a center
+linearization does not hold
+use Taylor series quadratic term
+$$
+U(x)\approx U(x_e)+\frac{1}{2}U''(x_e)(x-x_e)^2
+$$
+level curve are approximate ellipse
+- $U''(x_e)<0$, maximum at $x_e$
+linear system is a saddle
+by linearization theorem, level curve also saddle
+
+# Lyapunov's Method
+## isolated equilibrium $(x_e,y_e)$
+$\exists$ open disk $D=B_\delta(x_e,y_e)$ of radius $\delta>0$ centered at $(x_e,y_e)$
+$D$ does not contain other equilibrium
+## positive/ negative definite/ semidefinite function $W(x,y)$ in $D$
+$D$ is open disk centered at $(0,0)$
+$W(x,y)$ is continuous in $D$
+$W(0,0)=0$
+$D_*=D\backslash\{(0,0)\}$
+- positive definite function $W(x,y)$ in $D$
+$\forall\ (x,y)\in D_*,\ W(x,y)>0$
+- positive semidefinite function $W(x,y)$ in $D$
+$\forall\ (x,y)\in D,\ W(x,y)≥0$
+- negative definite function $W(x,y)$ in $D$
+$\forall\ (x,y)\in D_*,\ W(x,y)<0$
+- negative semidefinite function $W(x,y)$ in $D$
+$\forall\ (x,y)\in D,\ W(x,y)≤0$
+- positive definite (/ semidefinite) function $W(x,y)$ in $D$
+$\Leftrightarrow$ negative definite (/ semidefinite) function $-W(x,y)$ in $D$
+## directional derivative of $V(\vec x)$ along vector field $\vec f(\vec x)$
+planar system $\vec x'=\vec f(\vec x)$
+real-valued function $V(\vec x)$
+$$
+\dot V(\vec x)=\frac{∂V}{∂x_1}(\vec x)f_1(\vec x)+\frac{∂V}{∂x_2}(\vec x)f_2(\vec x)\\[12pt]
+=\frac{\mathrm d}{\mathrm dt}[V(\vec x(t))]=\vec f(\vec x)\cdot\nabla V(\vec x)
+$$
+## Lyapunov's stability theorem
+planar system $\vec x'=\vec f(\vec x)$
+$(0,0)$ is an isolated equilibrium
+- $\exists$ positive definite function $V(\vec x)$ in an open disk centered at $(0,0)$
+$\dot V(\vec x)$ is negative definite in $D$
+$\Rightarrow (0,0)$ is **asymptotically** stable
+  - explanation
+  $V$ increase going away from origin
+  $V$ decrease along vector field $\vec f$ going away from origin
+  $\Rightarrow V$ will always go towards origin along vector field $\vec f$
+- $\exists$ positive definite function $V(\vec x)$ in an open disk centered at $(0,0)$
+$\dot V(\vec x)$ is negative **semi**definite in $D$
+$\Rightarrow (0,0)$ is stable
+### Lyapunov function
+a function $V(\vec x)$ that satisfy the condition of either part of Lyapunov's stability theorem
+## Lyapunov's instability theorem
+planar system $\vec x'=\vec f(\vec x)$
+$(0,0)$ is an isolated equilibrium
+- $\exists$ continuous function $V(\vec x)$ in an open disk centered at $(0,0)$
+$V(0,0)=0$
+$\dot V(\vec x)$ is positive definite in $D$
+$\forall$ open disk $B$ centered at $(0,0)$, $\exists\ \vec a\in B,\quad V(\vec a)>0$
+$\Rightarrow (0,0)$ is unstable
+  - explanation
+  $V$ increase along vector field $\vec f$ going away from origin
+  $V$ is higher somewhere than the origin
+  $\Rightarrow V$ will go away from origin at some point
+- alternatively, instability for restrict system mean instability for whole system
+
+# periodic solution
+## limit cycle $L$
+closed curve
+$$
+L=\{\vec x(t):0≤t≤T\}
+$$
+- planar system $\vec x'=\vec f(\vec x)$
+- $\vec x(t)$ is a non-constant $T$-periodic solution
+  - non-constant mean the periodic solution is not a single point
+- $\exists$ at least one other solution $\vec x_1(t)$,
+$\displaystyle\lim_{t\rightarrow±\infty}d(\vec x_1(t),L)=0$
+  - distance $d(\vec x,L)=\min\{\lVert\vec x-\vec y\rVert:\vec y\in L\}$
+  - explanation
+  this solution go to the closed curve as time roll back or go forward
+### example of limit cycle
+$$
+x'=x-y-xf(r)\\
+y'=x+y-yf(r)
+$$
+- coordinate transformation
+$$
+x=r\cos\theta\\
+y=r\sin\theta\\
+rr'=xx'+yy'\\
+r^2\theta=xy'-x'y
+$$
+- $\theta'$ is constant for the specific $f(r)$
+- dynamic in radial direction have equilibrium when $r'=0$
+  - stability can be determined using phase line $r'(t)$
+  - each equilibrium correspond to a circular limit cycle
+### limit cycle enclose equilibrium
+$L$ enclose at least one equilibrium
+- $L$ enclose $1$ equilibrium
+$\Rightarrow$ the equilibrium cannot be saddle
+### Bendixson's negative criterion
+- planar system $\vec x'=\vec f(\vec x)$
+- simply connected domain $D\subseteq\R^2$
+- $f_1,f_2$ have continuous partial derivative in $D$
+- $\text{div}f=\nabla\cdot f=\displaystyle\frac{∂f_1}{∂x_1}+\displaystyle\frac{∂f_2}{∂x_2}$ does not change sign in $D$
+- $\Rightarrow$ system have no non-constant periodic orbit in $D$
+### Poincaré-Bendixson Theorem
+- planar system $\vec x'=\vec f(\vec x)$
+- solution $\vec x(t)$
+- isolated region $R$
+  - closed bounded
+  - $\forall\ t≥0,\vec x(t)\in R$
+  solution stay in $R$ forever
+- $f_1,f_2$ have continuous partial derivative in $R$
+- no equilibrium in $R$
+- $\Rightarrow\vec x(t)$ is either periodic or approach a limit cycle in $R$
 
 
 ---
