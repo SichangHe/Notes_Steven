@@ -261,7 +261,7 @@ x[2 Pi], {t, 0, 2 Pi}]
 $$
 a(x)y''+b(x)y'+c(x)y=f(x)
 $$
-## second-order homogenous linear equation with constant coefficient
+## second-order homogeneous linear equation with constant coefficient
 $$
 ay''+by'+cy=0
 $$
@@ -302,7 +302,7 @@ $$
 $$
 y=a_1e^{(\alpha+i\beta)x}+a_2e^{(\alpha-i\beta)x}\quad(a_1,a_2\in \mathbb C)
 $$
-## second-order non-homogenous linear equation
+## second-order non-homogeneous linear equation
 $$
 ay''+by'+cy=f(x)
 $$
@@ -760,7 +760,8 @@ p(r)&=\det(A-r\mathbb I)=r^2-r\text{tr}A+\det A\\
 \Delta&=T^2-4D
 \end{aligned}
 $$
-### real distinct eigenvalues $\Delta>0$
+![equilibrium type with different T-D](linear-system-T-D-relation.png)
+### real distinct eigenvalue $\Delta>0$
 $$
 U=\begin{bmatrix}
     \vec u_1&\vec u_2
@@ -871,6 +872,35 @@ solution are closed curve with period $T={2π\over\beta}$
 - rotation direction on $x_1,x_2$-plane
   - $\det U>0$
   same direction as on $z_1,z_2$-plane
+### real repeated eigenvalue $\Delta=0$
+generated eigenvalue of $A$
+$$
+U=\begin{bmatrix}
+    \vec u_1&\vec u_2
+\end{bmatrix}
+$$
+- real eigenvalue
+$$
+r_0=T\over2
+$$
+- case c1. $A=r_0\mathbb I\quad$ (or both $\vec u_1$ and $\vec u_2$ are eigenvalue of $A$)
+$$
+\vec x=\begin{bmatrix}
+  c_1e^{r_0t}\\c_2e^{r_0t}
+\end{bmatrix}
+$$
+all arrow point away from origin
+  - unstable node
+- case c2. $A≠r_0\mathbb I\quad$ (or only $\vec u_1$ is eigenvalue of $A$)
+$$
+\vec x=\begin{bmatrix}
+  (c_1+c_2t)e^{r_0t}\\c_2e^{r_0t}
+\end{bmatrix}
+$$
+all arrow point away from origin
+  - turn to the right with $c_2>0$
+  - turn to the left with $c_2<0$
+  - unstable
 
 # almost linear system
 - almost linear system $\vec x'=\vec f(\vec x)$ at $\vec x_e$
@@ -958,6 +988,7 @@ $$
 - $\displaystyle\frac{\mathrm d|y|}{\mathbb{d}(h-U(x))}>0$
 ### potential plane
 $x,U(x)$-plane
+![example using phase plane](example-using-phase-plane.png)
 ### equilibrium $(x_e,0)$
 $$
 f(x_e)=0,\quad y=0
