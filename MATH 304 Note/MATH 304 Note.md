@@ -350,7 +350,7 @@ $$
 $$
 X^{(k+1)}=X^{(k)}-\lambda^{(k)}\cdot\nabla f[X^{(k)}]
 $$
-### line search
+### exact line search
 optimize step size
 $$
 \min_{\lambda^{(k)}}f(X^{(k)}-\lambda^{(k)}\nabla f[X^{(k)}])
@@ -440,5 +440,185 @@ $R\rightarrow\nabla f[X^{(k)}]$
 $B\rightarrow B-AX^{(k)}$
 update $X^{(k+1)}$ with $\Delta X$
 - even if $X^{(0)}$ is not feasible, after one iteration, $X^{(1)}$ is feasible
+## inequality constrained optimization
+$$
+\min_Xf(X)\\[12pt]
+\text{such that }\begin{cases}
+    g_m(X)≤0\quad(m=1,\cdots,M)\\
+    AX=B
+\end{cases}
+$$
+### indicator function
+$$
+I(u)=\begin{cases}
+    0&(u≤0)\\
+    \infty&(u>0)
+\end{cases}
+$$
+convert the original problem to
+$$
+\min_Xf(X)+\sum_{m=1}^MI[g_m(X)]\\[12pt]
+\text{such that }AX=B
+$$
+### logarithmic barrier
+approximate $I$ using
+$$
+I(u)=-\frac{1}{t}\log(-u)\quad(u≤0)
+$$
+where $t$ is a parameter
+- converge to indicator function as $t\rightarrow\infty$
+- convert the original problem to
+$$
+\min_Xf(X)-\frac{1}{t}\sum_{m=1}^M\log(-g_m(X))\\[12pt]
+\text{such that }AX=B
+$$
+- if $f(X),g_m(X)$ are convex
+  - convex cost function
+  $$
+  \phi_m(X)=-\frac{1}{t}\log(-g_m(X))
+  $$
+#### phase I
+decide if the optimization is feasible
+find one feasible solution if feasible
+$$
+\min_{X,s}s\\[12pt]
+\text{such that }\begin{cases}
+    g_m(X)≤s\quad(m=1,\cdots,M)\\
+    AX=B
+\end{cases}
+$$
+##### solution
+1. select arbitrary $X^{(0)},AX^{(0)}=B$
+1. find $g_{MAX}=\max\{g_m(X^{(0)})\}$
+1. set $s^{(0)}$ to any number greater than $g_{MAX}$
+1. apply interior point method on $\begin{bmatrix}
+    X^{(0)}\\s^{(0)}
+\end{bmatrix}$ and find optimal solution $\begin{bmatrix}
+    X^*\\s^*
+\end{bmatrix}$
+    - in reality, the iteration can stop as soon as $s^{(k)}≤0$
+- $s^*≥0$
+phase II problem is not strictly feasible
+- $s^*<0$
+  - phase II problem is strictly feasible
+  - $X^*$ is one of the feasible solution
+#### phase II: interior point method (barrier method)
+1. set initial value $X^{(0)}$
+1. solve linear equality constrained nonlinear optimization
+find optimal solution $X^*$
+1. $X^{(0)}=X^*,t=\beta t$
+1. repeat until $t$ is large
+#### feasibility problem
+- reason
+$X^{(0)}$ must be strictly feasible
+
+# conjugate gradient method
+consider quadratic programming problem
+$$
+f(X)=\frac{1}{2}X^TAX-B^TX+C
+$$
+- residual $R^{(k)}=-\nabla f(X)=B-AX^{(k)}$
+- step size $\mu^{(k)}$
+- Hessian matrix $A$
+## gradient method
+$$
+X^{(k+1)}=X^{(k)}+\mu^{(k)}R^{(k)}
+$$
+- ideal initial guess
+converge by one iteration if $R^{(0)}$ is eigenvector of $A$
+### optimal step size $\mu^{(k)}$
+$$
+\mu^{(k)}=\frac{(R^{(k)})^TR^{(k)}}{(R^{(k)})^TAR^{(k)}}
+$$
+- reason
+$$
+\min_{\mu^{(k)}}f(X^{(k+1)})\\[12pt]
+\Rightarrow(R^{(k)})^TR^{(k+1)}=0
+$$orthogonal
+## orthogonal search direction $D^{(k)}$
+basis for the base
+$$
+X^{(k+1)}=X^{(k)}+\mu^{(k)}D^{(k)}\\[6pt]
+(D^{(i)})^TD^{(j)}=0
+$$
+### $\Delta^{(k)}$
+$$
+\Delta^{(k)}=X^{(k)}-X
+$$
+- $(D^{(k)})^T\Delta^{(k+1)}=0$ they are orthogonal
+- $A\Delta^{(k)}=-R^{(k)}$
+### $\mu^{(k)}$
+$$
+\mu^{(k)}=-\frac{(D^{(k)})^T\Delta^{(k)}}{(D^{(k)})^TD^{(k)}}
+$$
+## conjugate search direction (A-orthogonal search direction)
+$$
+X^{(k+1)}=X^{(k)}+\mu^{(k)}D^{(k)}\\[6pt]
+(D^{(i)})^TAD^{(j)}=0
+$$
+### conjugate vector $X,Y$ (A-orthogonal vector)
+$$
+X^TAY=\vec0
+$$
+- orthogonal vector $\Leftarrow A=\mathbb I$
+### $\Delta^{(k)}$
+$$
+\Delta^{(k)}=X^{(k)}-X
+$$
+- $(D^{(k)})^TA\Delta^{(k+1)}=0$ they are conjugate
+- $A\Delta^{(k)}=-R^{(k)}$
+### step size $\mu^{(k)}$
+$$
+\mu^{(k)}=\frac{(D^{(k)})^TR^{(k)}}{(D^{(k)})^TAD^{(k)}}
+$$
+- reason
+$$
+\min_{\mu^{(k)}}f(X^{(k+1)})\\[12pt]
+\Rightarrow(D^{(k)})^TR^{(k+1)}=0
+$$orthogonal
+### Gram-Schmidt conjugation
+$$
+D^{(k)}=R^{(k)}+\sum_{i=0}^{k-1} \beta_{k i} D^{(i)} \\[12pt]
+\beta_{k i}=-\frac{(D^{(i)})^T A R^{(k)}}{(D^{(i)})^T A D^{(i)}}
+$$
+### solution to conjugate search
+1. start from $k=0,X^{(0)}$
+2. $D^{(0)}=R^{(0)}=B-AX^{(0)}$
+3. increment $X^{(k+1)}=X^{(k)}+\mu^{(k)}D^{(k)}$
+$$
+\mu^{(k)}=\frac{(D^{(k)})^TR^{(k)}}{(D^{(k)})^TAD^{(k)}}
+=\frac{(R^{(k)})^TR^{(k)}}{(D^{(k)})^TAD^{(k)}}
+$$
+4. residual $R^{(k+1)}=B-AX^{(k+1)}
+=R^{(k)}-\mu^{(k)}AD^{(k)}$
+5. search direction
+$$
+D^{(k+1)}=R^{(k+1)}+\beta_{k+1,k} D^{(k)} \\[12pt]
+\beta_{k+1,k}=\frac{(R^{(k+1)})^TR^{(k+1)}}{(R^{(k)})^TR^{(k)}}
+$$
+    - original version
+    $$
+    D^{(k+1)}=R^{(k+1)}+\sum_{i=0}^{k} \beta_{k+1,i} D^{(i)} \\[12pt]
+    \beta_{k+1,i}=-\frac{(D^{(i)})^T A R^{(k+1)}}{(D^{(i)})^T A D^{(i)}}
+    $$
+6. $k$++, go to 3.
+## nonlinear conjugate search
+1. start from $k=0,X^{(0)}$
+2. $D^{(0)}=R^{(0)}=-\nabla f(X^{(0)})$
+3. increment $X^{(k+1)}=X^{(k)}+\mu^{(k)}D^{(k)}$
+$$
+\min_{\mu^{(k)}}f(X^{(k+1)})
+$$
+4. residual $R^{(k+1)}=-\nabla f(X^{(k+1)})$
+5. search direction
+$$
+D^{(k+1)}=R^{(k+1)}+\beta_{k+1,k} D^{(k)}
+$$
+   - Fletcher-Reeves formula
+$$
+\beta_{k+1,k}=\frac{(R^{(k+1)})^TR^{(k+1)}}{(R^{(k)})^TR^{(k)}}
+$$
+6. $k$++, go to 3.
+
 
 ---

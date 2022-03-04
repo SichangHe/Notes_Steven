@@ -31,6 +31,7 @@ step[{x0_, y0_}] := {x0 + 0.01, y0 + 0.01 f[x0, y0]}
 {x100, y100} = Nest[step, {1, 1}, 100]
 ```
 ### separable equation
+use separation of variable
 $$
 y'=g(x)p(y)
 $$
@@ -65,6 +66,20 @@ $$
 substitution
 $$
 v=y^{1-n}
+$$
+reduce the Bernoulli equation to linear equation
+$$
+\frac{\mathrm{d}u}{\mathrm{d}x}+(1-n)Pu=(1-n)Q
+$$
+### Ricatti equation
+$$
+\frac{\mathrm{d}y}{\mathrm{d}x}=P(x)y^2+Q(x)y+R(x)
+$$
+#### solution
+- one solution $u(x)$
+- substitution $y=u+\frac{1}{v}$ reduce the Ricatti equation to linear equation
+$$
+\frac{\mathrm{d}v}{\mathrm{d}x}+(2Pu+Q)v=-P
 $$
 
 ## existence and uniqueness theorem
@@ -116,7 +131,7 @@ $$
 $\Rightarrow y$ is a fixed point for operator $T$
 #### Banach fixed point theorem
 $X$ is **complete** metric space
-$T:X\rightarrow X$ is a **contraction** then
+$T:X\rightarrow X$ is a **contraction**
 $\Rightarrow T$ has a unique fixed point in $X$
 - contraction
 $T:X\rightarrow X$ is a **contraction** if
@@ -167,7 +182,7 @@ $x$ move away from $x_e$ from both side
 $\Leftarrow f'(x_e)>0$
 #### phase line
 draw the sign graph of $f(x)$
-#### linearization
+#### linearization (approximate linear dynamic)
 let $\lambda=f'(x_e),y=x-x_e$
 $$
 y'=\lambda y
@@ -1073,7 +1088,7 @@ $\Rightarrow (0,0)$ is unstable
   $\Rightarrow V$ will go away from origin at some point
 - alternatively, instability for restrict system mean instability for whole system
 
-# periodic solution
+# non-constant periodic solution
 ## limit cycle $L$
 closed curve
 $$
@@ -1083,7 +1098,7 @@ $$
 - $\vec x(t)$ is a non-constant $T$-periodic solution
   - non-constant mean the periodic solution is not a single point
 - $\exists$ at least one other solution $\vec x_1(t)$,
-$\displaystyle\lim_{t\rightarrow±\infty}d(\vec x_1(t),L)=0$
+$\displaystyle\lim_{t\rightarrow-\infty}d(\vec x_1(t),L)=0$ or $\displaystyle\lim_{t\rightarrow\infty}d(\vec x_1(t),L)=0$
   - distance $d(\vec x,L)=\min\{\lVert\vec x-\vec y\rVert:\vec y\in L\}$
   - explanation
   this solution go to the closed curve as time roll back or go forward
@@ -1097,7 +1112,7 @@ $$
 x=r\cos\theta\\
 y=r\sin\theta\\
 rr'=xx'+yy'\\
-r^2\theta=xy'-x'y
+r^2\theta'=xy'-x'y
 $$
 - $\theta'$ is constant for the specific $f(r)$
 - dynamic in radial direction have equilibrium when $r'=0$
@@ -1123,6 +1138,110 @@ $\Rightarrow$ the equilibrium cannot be saddle
 - $f_1,f_2$ have continuous partial derivative in $R$
 - no equilibrium in $R$
 - $\Rightarrow\vec x(t)$ is either periodic or approach a limit cycle in $R$
+
+# bifurcation in one-dimensional system
+$$
+x'=f(a,x)
+$$
+$a$ is changing parameter
+## implicit function theorem
+- smooth function $g(x,y)$
+- $g(x_0,y_0)=0$
+- $g_y(x_0,y_0)≠0$
+- $\Rightarrow\exists\ \theta>0$, *unique* $h(x)$ defined on $(x_0-\delta,x_0+\delta)$,
+$$
+h(x_0)=0,\quad\forall\ x\in(x_0-\delta,x_0+\delta),\ g(x,h(x))=0
+$$
+## persistence of equilibrium
+- $f(a,x)$ is a smooth function
+- $f(a_0,x_0)=0$, $x_0$ is an equilibrium when $a=a_0$
+- $f_x(a_0,x_0)≠0$
+- $\Rightarrow\exists\ \delta>0$, unique smooth function $g(a)$ defined on $(a_0-\delta,a_0+\delta)$
+$$
+g(a_0)=x_0,\quad\forall\ a\in(a_0-\delta,a_0+\delta),\ f(a_0,g(a_0))=0
+$$
+  - $g(a)$ is equilibrium
+## fold bifurcation (saddle-node bifurcation)
+$\exists$ smooth curve $a=h(x)$ near $x=x_0$
+$$
+f(h(x),x)=0\\
+h(x_0)=a_0\\
+h'(x_0)=0\\[6pt]
+h''(x_0)=-\frac{f_{xx}(a_0,x_0)}{f_a(a_0,x_0)}≠0
+$$
+in English: curve of equilibria (**bifurcation diagram**) near $(a_0,x_0)$ look like parabola
+![example curve of equilibria](curve-of-equilibria-fold-bifurcation.png)
+### condition
+- $f(a,x)$ is a smooth function
+- $f(a_0,x_0)=0$, $x_0$ is an equilibrium when $a=a_0$
+- $f_x(a_0,x_0)=0$ equilibrium do not persist
+- $f_{xx}(a_0,x_0)≠0$
+- $f_a(a_0,x_0)≠0$ transversality condition
+- $\Rightarrow$ system undergo fold bifurcation at $a_0$
+### stability
+$$
+s(x)=f_x(h(x),x)\\
+s'(x)=f_{xa}(h(x),x)h'(x)+f_{xx}(h(x),x)
+$$
+check $s'(x_0)$
+$$
+s'(x_0)=f_{xx}(a_0,x_0)
+$$
+- $s'(x_0)>0$
+equilibrium $x<x_0$ is stable
+equilibrium $x>x_0$ is unstable
+- $s'(x_0)<0$
+equilibrium $x<x_0$ is unstable
+equilibrium $x>x_0$ is stable
+#### proof
+1. $f(a_0,x_0)=0$, $f_a(a_0,x_0)≠0$, implicit function theorem
+$\Rightarrow\exists$ smooth function $h(x)$ near $x_0$, $f(h(x),x)=0$
+1. define $g(x)=f(h(x),x)$
+$\Rightarrow
+g^{\prime}(x)=f_{a}(h(x), x) h^{\prime}(x)+f_{x}(h(x), x)=0
+$
+1. Evaluate $f_{a}(h(x), x) h^{\prime}(x)+f_{x}(h(x), x)=0$ at $x_{0}$
+$$
+\begin{aligned}
+0 &=g^{\prime}\left(x_{0}\right)=f_{a}\left(h\left(x_{0}\right), x_{0}\right) h^{\prime}\left(x_{0}\right)+f_{x}\left(h\left(x_{0}\right), x_{0}\right) \\
+&=f_{a}\left(a_{0}, x_{0}\right) h^{\prime}\left(x_{0}\right)+f_{x}\left(a_{0}, x_{0}\right)=f_{a}\left(a_{0}, x_{0}\right) h^{\prime}\left(x_{0}\right)
+\end{aligned}
+$$
+$f_{a}\left(a_{0}, x_{0}\right) \neq 0\Rightarrow h^{\prime}\left(x_{0}\right)=0$.
+1. Then we take the derivative of the relation
+$$
+g^{\prime}(x)=f_{a}(h(x), x) h^{\prime}(x)+f_{x}(h(x), x)=0
+$$
+with respect to $x$. We find
+$$
+\begin{aligned}
+g^{\prime \prime}(x)=& f_{a a}(h(x), x)\left[h^{\prime}(x)\right]^{2}+f_{a x}(h(x), x) h^{\prime}(x)+f_{a}(h(x), x) h^{\prime \prime}(x) \\
+&+f_{x a}(h(x), x) h^{\prime}(x)+f_{x x}(h(x), x)=0
+\end{aligned}
+$$
+Evaluating at $x_{0}$ and using that $h^{\prime}\left(x_{0}\right)=0$ we find
+$$
+0=g^{\prime \prime}\left(x_{0}\right)=f_{a}\left(a_{0}, x_{0}\right) h^{\prime \prime}\left(x_{0}\right)+f_{x x}\left(a_{0}, x_{0}\right) .
+$$
+Since $f_{a}\left(a_{0}, x_{0}\right) \neq 0$ and $f_{x x}\left(a_{0}, x_{0}\right) \neq 0$ we can solve for $h^{\prime \prime}\left(x_{0}\right)$ to find
+$$
+h^{\prime \prime}\left(x_{0}\right)=-\frac{f_{x x}\left(a_{0}, x_{0}\right)}{f_{a}\left(a_{0}, x_{0}\right)} \neq 0
+$$
+# bifurcation in planar system
+$$
+x'=f(a,x,y)\\
+y'=g(a,x,y)
+$$
+$a\in\R^2$ is the parameter
+## persistence of equilibrium
+equilibrium persist
+$$
+\Leftarrow\det\begin{bmatrix}
+    f_x(a_0,x_0,y_0)&f_y(a_0,x_0,y_0)\\
+    g_x(a_0,x_0,y_0)&g_y(a_0,x_0,y_0)
+\end{bmatrix}≠0
+$$
+## fold bifurcation (saddle-node bifurcation)
 
 
 ---
