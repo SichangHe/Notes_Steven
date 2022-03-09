@@ -40,7 +40,14 @@ $$
 $$
 \int \frac{\mathrm{d}y}{p(y)}=\int g(x)\mathrm{d}x
 $$
-
+- explicit solution
+- implicit solution
+relationship between variable
+#### $p(y)=y$
+$$
+y'=yg(x)\\
+\Rightarrow y=Ae^{G(x)}
+$$
 ### linear equation
 $$
 a_1(x)y'+a_0(x)y=b(x)
@@ -1052,7 +1059,7 @@ $\forall\ (x,y)\in D_*,\ W(x,y)<0$
 $\forall\ (x,y)\in D,\ W(x,y)≤0$
 - positive definite (/ semidefinite) function $W(x,y)$ in $D$
 $\Leftrightarrow$ negative definite (/ semidefinite) function $-W(x,y)$ in $D$
-## directional derivative of $V(\vec x)$ along vector field $\vec f(\vec x)$
+## directional derivative of $V(\vec x)$ along vector field $\vec f(\vec x)$ (derivative of $V$ along the flow of $\vec f$)
 planar system $\vec x'=\vec f(\vec x)$
 real-valued function $V(\vec x)$
 $$
@@ -1114,6 +1121,7 @@ y=r\sin\theta\\
 rr'=xx'+yy'\\
 r^2\theta'=xy'-x'y
 $$
+- $r≥0$
 - $\theta'$ is constant for the specific $f(r)$
 - dynamic in radial direction have equilibrium when $r'=0$
   - stability can be determined using phase line $r'(t)$
@@ -1187,6 +1195,7 @@ check $s'(x_0)$
 $$
 s'(x_0)=f_{xx}(a_0,x_0)
 $$
+- stability depend on sign of $f_x$, regardless of $h(x)$
 - $s'(x_0)>0$
 equilibrium $x<x_0$ is stable
 equilibrium $x>x_0$ is unstable
@@ -1241,7 +1250,11 @@ $$
     g_x(a_0,x_0,y_0)&g_y(a_0,x_0,y_0)
 \end{bmatrix}≠0
 $$
+where $(x_0,y_0)$ is equilibrium when $a=a_0$
 ## fold bifurcation (saddle-node bifurcation)
-
+- supercritical bifurcation
+stable limit cycle + unstable spiral
+- subcritical bifurcation
+unstable limit cycle + stable spiral
 
 ---

@@ -6,10 +6,10 @@
 - $\lVert A\vec x\rVert\leq\lVert A\rVert\lVert\vec x\rVert$
 ### common norm
 #### vector norm
-Inf-norm $\lVert X\rVert_\infty=\max_{1\leq i\leq n}|x_i|$
-1-norm $\lVert X\rVert_1=\sum_{i=1}^n|x_i|$
-F-norm $\lVert X\rVert_e=\sqrt{\sum_{i=1}^nx_i^2}$
-Lp-norm $\lVert X\rVert_p=\left(\sum_{i=1}^n|x_i|^p\right)^{\frac{1}{p}}$
+Inf-norm $\lVert X\rVert_\infty=\displaystyle\max_{1\leq i\leq n}|x_i|\\$
+1-norm $\lVert X\rVert_1=\displaystyle\sum_{i=1}^n|x_i|\\$
+F-norm $\lVert X\rVert_e=\displaystyle\sqrt{\sum_{i=1}^nx_i^2}\\$
+Lp-norm $\lVert X\rVert_p=\displaystyle\left(\sum_{i=1}^n|x_i|^p\right)^{\frac{1}{p}}$
 #### matrix norm
 Inf-norm—max row sum
 $$
@@ -31,8 +31,13 @@ $$
 \\[12pt]\frac{\partial\mathbf{x}^TA\mathbf{x}}{\partial\mathbf{x}}=(A+A^T)\mathbf{x}
 $$
 
+## Taylor series for vector function
+$$
+f(X)\approx\nabla f(X_0)^T(X-X_0)+\frac{1}{2}(X-X_0)^TH(X_0)(X-X_0)
+$$
+
 # solve linear system
-## Gauss elimination
+## Gaussian elimination
 make it upper-triangular
 - forward elimination
 - backward substitution
@@ -47,6 +52,7 @@ quantitatively measure singularity
 $$
 k(A)=\lVert A\rVert\cdot\lVert A^{-1}\rVert
 $$
+large condition number indicate singularity
 ### determinant
 product of diagonal element of upper triangular matrix
 ## Gauss-Jordan elimination
@@ -76,10 +82,59 @@ symmetric and positive definite matrix
 $$
 A=LL^T
 $$
+- calculate $L$
+$$
+l_{ki}=\displaystyle\frac{a_{ki}-\displaystyle\sum_{j=1}^{i-1}l_{ij}l_{kj}}{l_{ii}}\\[12pt]
+l_{kk}=\sqrt{a_{kk}-\displaystyle\sum_{j=1}^{k-1}l_{kj}^2}
+$$
 ### LDLT transposition
 symmetric and positive definite matrix
 $$
 A=LDL^T
+$$
+- calculate $D,L$
+$$
+d_{jj}=a_{jj}-\sum_{k=1}^{j-1}l_{jk}^2d_{kk}\\[12pt]
+l_{ij}=\frac{1}{d_{jj}}\left(
+    a_{ij}-\sum_{k=1}^{j-1}l_{ik}d_{kk}l_{jk}
+    \right)
+$$
+
+## QR decomposition
+overdetermined $A$ convert to upper triangular $R$ and $Q$
+$$
+A=QR\\[12pt]
+R=Q^TA
+$$
+### overdetermined linear system
+$$
+A\vec\alpha=\vec b
+$$
+where $A\in\R^{N\times M},N<M$
+- naïve solution
+$$
+\vec\alpha=(A^TA)^{-1}(A^T\,\vec b)
+$$
+also the solution to least squares problem
+- solution by QR decomposition
+$$
+\vec\alpha=R^{-1}(Q^TB)
+$$
+analytically equivalent to naïve solution
+numerically more robust than naïve solution
+  - pseudo-inverse of $A$
+  $$
+  R^{-1}Q^T=(A^TA)^{-1}A^T
+  $$
+### Gram-Schmidt orthogonalization
+orthogonalize $A$ and get orthonormal basis $Q$
+$\vec u_1=\vec a_1$
+$\vec u_k=\vec a_k-\text{proj}_{\vec u_1}\vec a_{i}\cdots-\text{proj}_{\vec u_{i-1}}\vec a_{i}$
+$\vec q_i=\frac{\vec u_i}{\lVert\vec u_1\rVert}$
+$\text{proj}_{\vec u_{j}}\vec a_{i}=\frac{\vec r_{ij}}{\lVert\vec u_i\rVert}$
+- projection
+$$
+\text{proj}_{\vec u}\vec v=\frac{\vec v\cdot\vec u}{\vec u\cdot\vec u}\vec u
 $$
 
 ## iteration method
@@ -112,7 +167,49 @@ such that $|a^i\vec\alpha-b_i|≤t\quad\forall\ i$
 *simple* model is better
 $|\vec\alpha|$ should be small
 $$
-\min_{\vec\alpha}\lVert A\vec\alpha-\vec b\rVert_F^2+\lambda\lVert\vec\alpha\rVert_F^2
+\min_{\vec\alpha}\left\lVert A\vec\alpha-\vec b\right\rVert_F^2+\lambda\left\lVert\vec\alpha\right\rVert_F^2
+$$
+#### convert to least-squares problem
+$$
+\begin{bmatrix}
+    \\&A\\\\\sqrt{\lambda}\\&\sqrt{\lambda}\\&&\ddots
+\end{bmatrix}\vec\alpha
+=\begin{bmatrix}
+    \\B\\\\0\\0\\\vdots
+\end{bmatrix}
+$$
+
+# solve nonlinear system
+$$
+f(X)=\vec 0
+$$
+## bracketing method
+shrink $[a,b]$
+### bisection method
+half the interval length
+- stopping criteria
+  - relative error
+  $$
+  |\varepsilon_a|=\left|
+    \frac{\hat x_r^n-\hat x_r^{n-1}}{\hat x_r^n}
+  \right|≤\varepsilon_s
+  $$
+  - absolute error
+  $\Delta x\sim0$
+### false position method
+connect two known point with line and solve the line for $0$
+$$
+x_r=x_U-\frac{f(x_U)(x_L-x_U)}{f(x_L)-f(x_U)}
+$$
+## open method
+change the problem to
+$$
+X=g(X)
+$$
+### Newton-Raphson method
+use first order Taylor series
+$$
+x_{i+1}=x_i-\frac{f(x_i)}{f'(x_i)}
 $$
 
 # convex
@@ -187,6 +284,8 @@ $$
 \forall\ \vec x,\nabla^2f(\vec x)\succeq0
 $$
 Hessian matrix is positive semi-definite $\Rightarrow f$ is convex
+- twice differentiable $f$
+Hessian matrix is positive semi-definite $\Leftrightarrow f$ is convex
 #### Hessian matrix
 $$
 \nabla^2f(\vec x)
@@ -519,7 +618,7 @@ f(X)=\frac{1}{2}X^TAX-B^TX+C
 $$
 - residual $R^{(k)}=-\nabla f(X)=B-AX^{(k)}$
 - step size $\mu^{(k)}$
-- Hessian matrix $A$
+- Hessian matrix $A$ need to be symmetrical
 ## gradient method
 $$
 X^{(k+1)}=X^{(k)}+\mu^{(k)}R^{(k)}
