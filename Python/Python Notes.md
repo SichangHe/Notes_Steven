@@ -385,12 +385,14 @@ create file if not exist and parent exist
 - syntax error
 - run-time error
 ## try
-    try:
-        execution1
-    except error_name:
-        execution2
-    finally:
-        execution3
+```python
+try:
+    execution1
+except error_name:
+    execution2
+finally:
+    execution3
+```
 - multiple kinds of error `except (error_name1,error_name2):`
 - catch error individually using multiple `except`
 - bare exception clause `except:` catch any error
