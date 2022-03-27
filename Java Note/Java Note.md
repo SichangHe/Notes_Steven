@@ -1,6 +1,3 @@
-@import "../highlight.js"
-@import "../highlight.css"
-
 # built-in data type
 
 ## primitive type

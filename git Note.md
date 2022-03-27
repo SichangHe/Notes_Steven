@@ -1,3 +1,5 @@
+# Git note
+
 start using git
 
 ```shell
@@ -38,4 +40,10 @@ add repo as submodule
 
 ```shell
 git submodule add <repo>
+```
+
+push `book` folder to GitHub gh-pages to publish pages
+
+```shell
+git subtree push --prefix book origin gh-pages
 ```
