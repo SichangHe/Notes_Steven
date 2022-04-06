@@ -75,6 +75,30 @@ increase a key and keep the heap a max-heap
 1. `A[size - 1]` $=-\infty$
 1. increase key on `A[size - 1]`
 
+## quicksort
+
+- partition the array so there is a point in the array,
+    everything left to it is less than it
+    and everything right to it is larger than it
+- quicksort the left and the right
+
+## counting sort
+
+sort integer know to be less than a constant
+
+- initialize auxiliary array of 0 with length equal to the constant
+- traverse the array and increment the index corresponding to the value
+    in the auxiliary array
+- traverse the auxiliary array and add the last element to this element,
+    now the values represent the amount of elements less or equal to this element
+- backwards traverse the array and fill in to index in the final array
+    corresponding to the value in the auxiliary array,
+    and decrement the value in the auxiliary array
+
+## radix sort
+
+sort according to the last digit, then the previous, until the first
+
 # growth of function
 
 ## asymptotic notation
@@ -100,3 +124,20 @@ not asymptotically tight
 
 bounded below,
 not asymptotically tight
+
+# median & order statistics
+
+## $i$th order statistic
+
+the $i$th smallest element in the set
+
+## (lower) median
+
+halfway point of the set
+$$
+\lfloor(n+1)/2\rfloor
+$$
+
+## selection problem
+
+find an element in the set larger than exactly $i-1$ element
