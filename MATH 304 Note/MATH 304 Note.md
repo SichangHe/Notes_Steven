@@ -1,3 +1,5 @@
+# MATH 304 Note
+
 ## norm
 
 - $\lVert A\rVert\geq0,=0$ iff $A=\vec0$

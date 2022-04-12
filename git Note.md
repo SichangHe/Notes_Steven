@@ -66,9 +66,27 @@ push `book` folder to GitHub gh-pages to publish pages
 git subtree push --prefix book origin gh-pages
 ```
 
-delete all history of a certain file
+push all branch to all remote
+
+```shell
+git remote | xargs -L1 git push --all
+```
+
+push master to all remote
+
+```shell
+git remote | xargs -L1 -I R git push R master
+```
+
+delete all history of a certain file (*deprecated*)
 
 ```shell
 git filter-branch --index-filter \
     'git rm -rf --cached --ignore-unmatch <path_to_file>' HEAD
+```
+
+delete all history of a certain file using git-filter-repo
+
+```shell
+git filter-repo --invert-paths --path '<path_to_file>' --use-base-name
 ```
