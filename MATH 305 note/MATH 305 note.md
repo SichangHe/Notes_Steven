@@ -779,4 +779,261 @@ $$
 \vec a_k\vec b_k^*=a_{ik}b_{kj}
 $$
 
+### elementary matrix operation
+
+1. multiply row (/column) by non-zero scalar with elementary matrix $D_i(m)$
+1. swap row (/column) with elementary matrix $T_{ij}$
+1. add non-zero scalar multiplication of row (/column) to another
+    with elementary matrix $L_{ij}$
+
+- left multiply by elementary matrix is elementary row operation
+- right multiply by elementary matrix is elementary column operation
+- elementary operation preserve rank
+
+#### elementary matrix
+
+$$
+D_i(m)=\begin{bmatrix}
+    1\\
+    &\ddots\\
+    &&1\\
+    &&&m\\
+    &&&&1\\
+    &&&&&\ddots\\
+    &&&&&&1
+\end{bmatrix}
+\\[12pt]
+T_{ij}=\begin{bmatrix}
+    1\\
+    &\ddots\\
+    &&0&&1\\
+    &&&\ddots\\
+    &&1&&0\\
+    &&&&&\ddots\\
+    &&&&&&1
+\end{bmatrix}
+\\[12pt]
+L_i(m)=\begin{bmatrix}
+    1\\
+    &\ddots\\
+    &&1\\
+    &&&\ddots\\
+    &&m&&1\\
+    &&&&&\ddots\\
+    &&&&&&1
+\end{bmatrix}
+$$
+
+- invertible
+    - $(D_i(m))^{-1}=D_i(\frac{1}{m})$
+    - $(T_{ij})^{-1}=T_{ij}$
+    - $(L_{ij}(m))^{-1}=L_{ij}(-m)$
+
+### echelon form $R$
+
+#### rank factorization
+
+$∀\ A\in F^{m\times n},∃$ invertible $P\in F^{m\times m},R=PA$
+
+$$
+\begin{bmatrix}
+A&\mathbb I
+\end{bmatrix} ∼ \begin{bmatrix}
+R&P
+\end{bmatrix}
+$$
+
+## linear transformation $T:V → W$
+
+- additivity $∀\ \vec u,\vec v\in V,T(\vec u+\vec v)=T\vec u+T\vec v$
+- homogeneity $∀\ \lambda\in F,\vec v\in V,T(\lambda\vec v)=\lambda T(\vec v)$
+
+### space of linear transformations from $V$ into $W$, $L(V,W)$
+
+all linear transformation from $V$ to $W$
+
+- $L(V,W)$ is vector space
+- addition $∀\ S,T\in L(V,W),\vec v\in V,(S+T)\vec v=S\vec v+T\vec v$
+- multiplication $∀\ S,T\in L(V,W),\vec v\in V,(ST)\vec v=S(T\vec v)$
+    - $ST\not\equiv TS$
+- $\dim(L(V,W))=\dim(V)\dim(W)$
+
+$∀\ T\in L(V,W)$
+
+- $T(\vec0)=\vec0$
+- $\vec\alpha_1,\cdots,\vec\alpha_k$ linearly dependent
+    $⇒ T(\vec\alpha_1),\cdots,T(\vec\alpha_k)$ linearly dependent
+- $\vec\alpha_1,\cdots,\vec\alpha_k$ linearly independent
+    $\Leftarrow T(\vec\alpha_1),\cdots,T(\vec\alpha_k)$ linearly independent
+
+#### linear transformation from basis to vector
+
+$∀$ basis $\vec v_1,\cdots,\vec v_n$ of $V$
+and $\vec u_1,\cdots,\vec u_n\in W$\
+$∃$ unique $T:V → W$
+
+$$
+∀\ j=1,\cdots,n,\quad T\vec v_j=w_j
+$$
+
+### range of $T$, $\mathcal R(T)$
+
+$$
+\mathcal R(T)=\{
+    T\vec v|\vec v\in V
+\}
+$$
+
+- $\mathcal R(T)$ is a subspace of $W$
+- $T$ is surjective $⇔ \mathcal R(T)=W$
+
+### null space (kernel) of $T$, $Null(T)$
+
+$$
+Null(T)=\{
+    \vec v\in V|T\vec v=\vec0
+\}=T^{-1}\{\vec0\}
+$$
+
+- $Null(T)$ is a subspace of $V$
+- $T$ is injective $⇔ Null(T)=\{\vec0\}$
+
+### rank and nullity of $T$, $\text{rank}(T)$, $\text{nullity}(T)$
+
+$$
+\text{rank}(T)=\dim(\mathcal R(T))
+\\[12pt]
+\text{nullity}(T)=\dim(Null(T))
+$$
+
+#### fundamental theorem of linear transformation
+
+$$
+\dim V=\text{rank}(T)+\text{nullity}(T)\quad🔴
+$$
+
+- $\dim V>\dim W ⇒ ¬ (∃$ injective linear map $V → W)$
+- $\dim V<\dim W ⇒ ¬ (∃$ surjective linear map $V → W)$
+
+### linear transformation & matrix
+
+let $T:F^n → F^m$
+
+$$
+TX=AX
+\\[12pt] ⇔
+T(x_1,\cdots,x_n)=\left(
+    ∑_{k=1}^nA_{1k}x_k,\cdots,∑_{k=1}^nA_{mk}x_k
+\right)
+$$
+
+- $n>m ⇒ TX=\vec0$ has nonzero solution
+- $n<m ⇒ ∃\ C,TX=C$ has no solution
+
+#### matrix of $T$, $\mathcal M(T)$
+
+let $T:V → W$,
+$\vec\alpha_1,\cdots,\vec\alpha_n$ be basis of $V$,
+$\vec\beta_1,\cdots,\vec\beta_m$ be basic of $W$
+
+$$
+T(\vec\alpha_1,\cdots,\vec\alpha_n)=(\vec\beta_1,\cdots,\vec\beta_m)A
+\\[12pt]
+A=\mathcal M(
+        T,
+        (\vec\alpha_1,\cdots,\vec\alpha_n),
+        (\vec\beta_1,\cdots,\vec\beta_m)
+    )
+$$
+
+or $\mathcal M(T)$ without confusion
+
+- for $\vec\alpha\in V$ with coordinate $\vec x$
+    under basis $\vec\alpha_1,\cdots,\vec\alpha_n$,
+    $T\vec\alpha$'s coordinate is $y=A\vec x$
+    under basis $\vec\beta_1,\cdots,\vec\beta_m$
+- $\mathcal M$ is linear transformation
+    - $\mathcal M(S+T)=\mathcal M(S)+\mathcal M(T)$
+    - $\mathcal M(\lambda T)=\lambda\mathcal M(T)$
+    - $T\in L(U,V),S\in L(V,W) ⇒ \mathcal M(ST)=\mathcal M(S)\mathcal M(T)$
+- $\mathcal M$ is isomorphism between $L(V,W)$ and $F^{m × n}$
+    - $\dim(\mathcal R(T))=Rank(A)$
+- $\text{rank}(T)=\text{rank}(A)$
+
+##### solve for matrix of $T$, $\mathcal M(T)$
+
+$$
+T\vec\alpha_i=(\vec\beta_1,\cdots,\vec\beta_m)A_i
+$$
+
+##### matrix of linear transformation $T$ is equivalent
+
+let
+$$
+A=\mathcal M(
+        T,
+        (\vec\alpha_1,\cdots,\vec\alpha_n),
+        (\vec\beta_1,\cdots,\vec\beta_m)
+    )
+\\
+B=\mathcal M(
+        T,
+        (\tilde{\vec\alpha_1},\cdots,\tilde{\vec\alpha_n}),
+        (\tilde{\vec\beta_1},\cdots,\tilde{\vec\beta_m})
+    )
+$$
+$∃$ invertible matrix $P\in F^{m × m},Q\in F^{n × n}$
+$$
+(\tilde{\vec\alpha_1},\cdots,\tilde{\vec\alpha_n})
+=(\vec\alpha_1,\cdots,\vec\alpha_n)Q
+\\
+(\vec\beta_1,\cdots,\vec\beta_m)
+=(\tilde{\vec\beta_1},\cdots,\tilde{\vec\beta_m})P
+\\[12pt]
+B=PAQ\quad🔴
+$$
+
+### isomorphism $T$
+
+invertible linear transformation
+
+$$
+⇔
+\begin{cases}
+    Null(T)=\{0\}
+    \\
+    \mathcal R(T)=W
+\end{cases}
+$$
+
+- $∃$ inverse $T^{-1},T^{-1}T=\mathbb I_V,TT^{-1}=\mathbb I_W$
+- isomorphism $T_1,T_2 ⇒$ isomorphism $T_1T_2$
+- $⇒ \dim L(V,W)=\dim V\dim W$
+
+#### isomorphic vector space $V$ and $W$
+
+$∃$ isomorphism from one to another
+
+- $⇔ \dim V=\dim W$
+
+### operator
+
+linear transformation from a vector space to itself
+
+### all operation on $V$, $L(V)$
+
+$$
+L(V)=L(V,V)
+$$
+
+- $T$ invertible
+    - $⇔ T$ injective
+    - $⇔ T$ surjective
+    - $⇔ T$ transform basis of $V$ to basis of $V$
+- $$
+    T(\vec\alpha_1,\cdots,\vec\alpha_n)=(\vec\beta_1,\cdots,\vec\beta_m)A
+    \\ ⇒
+    T^{-1}(\vec\alpha_1,\cdots,\vec\alpha_n)=(\vec\beta_1,\cdots,\vec\beta_m)A^{-1}
+    $$
+
 ---
