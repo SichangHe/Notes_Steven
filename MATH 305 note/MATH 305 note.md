@@ -1035,5 +1035,31 @@ $$
     \\ ⇒
     T^{-1}(\vec\alpha_1,\cdots,\vec\alpha_n)=(\vec\beta_1,\cdots,\vec\beta_m)A^{-1}
     $$
+- let
+    $$
+    A=\mathcal M(
+            T,
+            (\vec\alpha_1,\cdots,\vec\alpha_n),
+            (\vec\alpha_1,\cdots,\vec\alpha_n)
+        )
+    \\
+    B=\mathcal M(
+            T,
+            (\vec\beta_1,\cdots,\vec\beta_m),
+            (\vec\beta_1,\cdots,\vec\beta_m)
+        )
+    $$
+    $∃$ invertible matrix $P\in F^{n × n}$
+    $$
+    (\vec\beta_1,\cdots,\vec\beta_m)
+    =(\vec\alpha_1,\cdots,\vec\alpha_n)P
+    \\[12pt]
+    B=P^{-1}AP\quad🔴
+    $$
+
+## normed vector space $(V,\lVert\cdot\rVert)$
+
+- vector space $V$
+- norm $\lVert\cdot\rVert$
 
 ---
