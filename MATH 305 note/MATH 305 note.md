@@ -1056,10 +1056,212 @@ $$
     \\[12pt]
     B=P^{-1}AP\quad🔴
     $$
+    $A,B$ are similar
 
-## normed vector space $(V,\lVert\cdot\rVert)$
+### linear functional $T\in L(V,\mathbb F)$
+
+linear map from vector space $V$ to $\mathbb F$
+
+#### dual space of $V$, $V'$
+
+vector space of all linear functional on $V$
+
+$$
+V'=L(V,\mathbb F)
+$$
+
+- $V$ is finite-dimensional $⇒ \dim V'=\dim V$
+
+#### dual basis of $\vec v_1,\cdots,\vec v_n$
+
+list $\phi_1,\cdot,\phi_n$ of element of $V'$
+
+$$
+\phi_j(\vec v_k)=\begin{cases}
+    1&j=k
+    \\
+    0&j≠k
+\end{cases}
+$$
+
+- $V$ is finite-dimensional $⇒$ dual basis of $V$ is basis of $V'$
+    - proof that dual basis is linearly independent: plug in arbitrary $\vec v_j$
+
+#### dual map of $T$, $T'$
+
+$T\in L(V,W),\ T'\in L(W',V')$
+
+$$
+∀\ \phi\in W',\ T'(\phi)=\phi\circ T
+$$
+
+- $T'(\phi)\in V'$
+- dual map are linear
+    - $∀\ S,T\in L(V,W),\quad(S+T)'=S'+T'$
+    - $∀\ \lambda\in\mathbb F,\ T\in L(V,W),\quad(\lambda T)'=\lambda T'$
+- $∀\ S\in L(V,W),\ T\in L(U,V),\quad(ST)'=T'S'$
+- matrix of $T'$, $\mathcal M(T')=(\mathcal M(T))^T$
+    - proof: P430
+
+##### null space of $T'$, $Null(T')$
+
+- $Null(T')=(\mathcal R(T))^0$
+- $\dim Null(T')=\dim Null(T)+\dim W-\dim V$
+- $T$ surjective $⇔ T'$ injective
+
+##### range of $T'$, $\mathcal R(T')$
+
+$V,W$ are finite-dimensional $⇒$
+
+- $\dim\mathcal R(T')=\dim\mathcal R(T)$
+- $\mathcal R(T')=(Null(T))^0$
+- $T$ injective $⇔ T'$ surjective
+
+#### annihilator of $U$, $U^0$
+
+$U ⊆ V$
+
+$$
+U^0=\{
+    \phi\in V'|∀\ u\in U,\ \phi(u)=0
+\}
+$$
+
+- $U^0$ is subspace of $V'$
+- $V$ is finite-dimensional $⇒\dim U+\dim U^0=\dim V$
+
+## operator norm
+
+- nonnegativity
+- homogeneity
+- triangle inequality
+
+standard norm for vector space of function $[a,b] → \mathbb R$
+
+- $L^1$ norm
+    $$
+    \lVert f(t)\rVert_1=\int_a^b|f(t)|\mathrm dt
+    $$
+- $L^p$ norm
+    $$
+    \lVert f(t)\rVert_p=\left(
+        \int_a^b|f(t)|^p\mathrm dt
+    \right)^{\frac{1}{p}}
+    $$
+- $L^∞$ norm
+    $$
+    \lVert f(t)\rVert_∞=essup_{[a,b]}\{|f(t)|\}
+    $$
+
+for $X ⊆ \mathbb R$
+
+- supremum (least upper bound) $\sup X$
+- maximum
+- infimum (greatest lower bound) $\inf X$
+- minimum
+
+### normed vector space $(V,\lVert\cdot\rVert)$
 
 - vector space $V$
 - norm $\lVert\cdot\rVert$
+
+#### normalized vector (unit vector) $\vec v$
+
+$$
+\lVert\vec v\rVert=1
+$$
+
+- normalize nonzero vector $\vec v$
+    $$
+    \vec u=\frac{\vec v}{\lVert\vec v\rVert}
+    $$
+
+### metric $d(\vec v,\vec w)$
+
+metric induced by norm
+
+$$
+d(\vec v,\vec w)=\lVert\vec v-\vec w\rVert
+$$
+
+### induced operator norm $\lVert T\rVert$
+
+$V,W$ are normed vector space, $T:V → W$
+
+$$
+\lVert T\rVert
+=\sup_{\vec v\in V-\{0\}}\frac{\lVert T\vec v\rVert}{\lVert\vec v\rVert}
+=\sup_{\vec v\in V,\lVert\vec v\rVert=1}\lVert T\vec v\rVert
+$$
+
+- induced operator norm inequation
+$$
+∀\ \vec u\in V,\quad\lVert T\vec u\rVert≤\lVert T\rVert\lVert\vec u\rVert
+$$
+- induced operator norm are submultiplicative
+
+#### bounded transformation $T$
+
+$$
+∃\ M>0,\quad\lVert T\rVert≤M
+$$
+
+### submultiplicative norm $\lVert T\rVert$
+
+$$
+∀\ T,U\in L(V),\quad\lVert TU\rVert≤\lVert V\rVert\lVert U\rVert
+$$
+
+### matrix norm $\lVert A\rVert$
+
+$$
+\lVert A\rVert
+:=\max_{\lVert \vec v\rVert}\lVert A\vec v\rVert
+$$
+
+- $L^1$ norm
+    $$
+    \lVert A\rVert_1=\max_j∑_i|a_{ij}|
+    $$
+- $L^2$ norm
+    $$
+    \lVert A\rVert_2=\sqrt{\rho(A^HA)}
+    $$
+    - $\rho()$ maximum absolute value of eigenvalue
+- Frobenius norm (Euclidean norm)
+    $$
+    \lVert A\rVert_F=\left(
+        ∑_i^n∑_j^m|a_{ij}|
+    \right)^\frac{1}{2}
+    $$
+- $L^∞$ norm
+    $$
+    \lVert A\rVert=\max_i∑_j|a_{ij}|
+    $$
+
+## coordinate system
+
+### ordered basis $\mathcal B$
+
+finite list of vector $\mathcal B=(\vec v_1,\cdots,\vec v_n)$
+
+- linearly independent
+- span $V$
+
+### coordinate vector of $\vec v$, $[\vec v]_{\mathcal B}$
+
+$n$-tuple $[\vec v]_{\mathcal B}=\vec s\in F^n$
+
+$$
+\vec v=∑_i^ns_i\vec v_i
+$$
+
+- $∀\ P\in F^{n × n}$ invertible,
+    $∃$ ordered basis $\mathcal A=\vec w_1,\cdots,\vec w_n$
+    $$
+    (\vec v_1,\cdots,\vec v_n)=(\vec w_1,\cdots,\vec w_n)P
+    \\[6pt] ⇒
+    [\vec v]_{\mathcal B}=P[\vec v]_{\mathcal A}
+    $$
 
 ---
