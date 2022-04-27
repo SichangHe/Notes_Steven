@@ -90,3 +90,9 @@ delete all history of a certain file using git-filter-repo
 ```shell
 git filter-repo --invert-paths --path '<path_to_file>' --use-base-name
 ```
+
+ignore all symlink
+
+```bash
+find * -type l -not -exec grep -q "^{}$" .gitignore \; -print >> .gitignore
+```

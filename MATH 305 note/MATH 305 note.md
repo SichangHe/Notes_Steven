@@ -1199,6 +1199,7 @@ $$
 ∀\ \vec u\in V,\quad\lVert T\vec u\rVert≤\lVert T\rVert\lVert\vec u\rVert
 $$
 - induced operator norm are submultiplicative
+    - proof: by induced operator norm inequation
 
 #### bounded transformation $T$
 
@@ -1239,6 +1240,15 @@ $$
     \lVert A\rVert=\max_i∑_j|a_{ij}|
     $$
 
+#### Neumann Expansion
+
+- $\lVert \cdot\rVert$ submultiplicative operator norm
+- $T:V → V$ linear operator, $\lVert T\rVert<1$
+- $⇒ (I-T)^{-1}$ exist
+    $$
+    (I-T)^{-1}=∑_{i=0}^∞T^i
+    $$
+
 ## coordinate system
 
 ### ordered basis $\mathcal B$
@@ -1263,5 +1273,43 @@ $$
     \\[6pt] ⇒
     [\vec v]_{\mathcal B}=P[\vec v]_{\mathcal A}
     $$
+
+## inner product $\langle \vec v,\vec w\rangle$
+
+$\langle \vec v,\vec w\rangle\in F$
+
+$∀\ \vec u,\vec v,\vec w\in V,\ s\in F$
+
+- $\langle \vec v,\vec v\rangle
+    \begin{cases}>0&\vec v≠\vec0
+        \\
+        =0&\vec v=\vec0
+    \end{cases}$
+- $\langle \vec u+\vec v,w\rangle=\langle \vec u,w\rangle+\langle\vec v,w\rangle$
+- $\langle s\vec v,\vec w\rangle=s \langle \vec v,\vec w\rangle$
+- $\langle \vec v,\vec w\rangle=\overline{\langle \vec w,\vec v\rangle}$
+- $⇒ \langle s\vec v+\vec u,\vec w\rangle
+    =s \langle \vec v,\vec w\rangle+\langle\vec v,w\rangle$
+- $⇒ \langle \vec v,s\vec u+\vec w\rangle
+    =\bar s \langle \vec v,\vec u\rangle+\langle \vec v,\vec w\rangle$
+
+### inner product on a function space
+
+$V$ vector space of all continuous complex-valued function on $[0,1]$
+
+an inner product
+
+$$
+\langle f,g\rangle=\int_0^1f\bar g\mathrm dx
+$$
+
+### orthogonal vector
+
+$$
+\langle \vec u,\vec v\rangle=0
+$$
+
+- $∀\ v\in V,\quad\vec0$ is orthogonal to $\vec v$
+- $\vec0$ is the only vector orthogonal to itself
 
 ---
