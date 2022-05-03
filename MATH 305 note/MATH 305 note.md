@@ -1231,10 +1231,11 @@ $$
     - $\rho()$ maximum absolute value of eigenvalue
 - Frobenius norm (Euclidean norm)
     $$
-    \lVert A\rVert_F=\left(
+    \lVert A\rVert_F=\sqrt{
         ∑_i^n∑_j^m|a_{ij}|
-    \right)^\frac{1}{2}
+    }
     $$
+    - not induced norm
 - $L^∞$ norm
     $$
     \lVert A\rVert=\max_i∑_j|a_{ij}|
@@ -1274,42 +1275,4 @@ $$
     [\vec v]_{\mathcal B}=P[\vec v]_{\mathcal A}
     $$
 
-## inner product $\langle \vec v,\vec w\rangle$
-
-$\langle \vec v,\vec w\rangle\in F$
-
-$∀\ \vec u,\vec v,\vec w\in V,\ s\in F$
-
-- $\langle \vec v,\vec v\rangle
-    \begin{cases}>0&\vec v≠\vec0
-        \\
-        =0&\vec v=\vec0
-    \end{cases}$
-- $\langle \vec u+\vec v,w\rangle=\langle \vec u,w\rangle+\langle\vec v,w\rangle$
-- $\langle s\vec v,\vec w\rangle=s \langle \vec v,\vec w\rangle$
-- $\langle \vec v,\vec w\rangle=\overline{\langle \vec w,\vec v\rangle}$
-- $⇒ \langle s\vec v+\vec u,\vec w\rangle
-    =s \langle \vec v,\vec w\rangle+\langle\vec v,w\rangle$
-- $⇒ \langle \vec v,s\vec u+\vec w\rangle
-    =\bar s \langle \vec v,\vec u\rangle+\langle \vec v,\vec w\rangle$
-
-### inner product on a function space
-
-$V$ vector space of all continuous complex-valued function on $[0,1]$
-
-an inner product
-
-$$
-\langle f,g\rangle=\int_0^1f\bar g\mathrm dx
-$$
-
-### orthogonal vector
-
-$$
-\langle \vec u,\vec v\rangle=0
-$$
-
-- $∀\ v\in V,\quad\vec0$ is orthogonal to $\vec v$
-- $\vec0$ is the only vector orthogonal to itself
-
----
+@import "inner product.md"
