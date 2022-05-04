@@ -11,3 +11,9 @@ set mirror
 ```shell
 sudo vim /etc/pacman.d/mirrorlist
 ```
+
+resolve untrusted packages when updating
+
+```shell
+sudo pacman -Sy archlinux-keyring
+```
