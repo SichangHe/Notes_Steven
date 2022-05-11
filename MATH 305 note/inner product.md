@@ -163,6 +163,24 @@ $$
 \quad\vec w_k=\frac{\vec\beta_k}{\lVert \vec\beta_k\rVert}
 $$
 
+alternatively, construct orthogonal basis
+
+$$
+\vec v_1,\vec v_2 → \vec w_2
+=\vec v_2
+-\frac{\langle \vec v_2,\vec v_1\rangle}{\langle \vec v_1,\vec v_1\rangle}\vec v_1
+\quad\vec w_2=\frac{\vec\beta_2}{\lVert \vec\beta_2\rVert}
+\\
+\vdots
+\\
+\vec v_1,\cdots,\vec v_k
+→ \vec w_k=\vec v_k
+-\frac{\langle \vec v_k,\vec v_1\rangle}{\langle \vec v_1,\vec v_1\rangle}\vec v_1
+-\cdots
+-\frac{\langle \vec v_k,\vec v_{k-1}\rangle}{\langle\vec v_{k-1},
+\vec v_{k-1}\rangle}\vec v_{k-1}
+$$
+
 ### orthogonal complement of $W$, $W^\perp$
 
 $$
@@ -184,7 +202,7 @@ $$
 $U$ is subspace of $V$\
 $P_U\in L(V)$
 
-for $\vec v\in V,\vec v=\vec u+\vec,\vec u\in U,\vec w\in U^\perp$
+for $\vec v\in V,\vec v=\vec u+\vec w,\vec u\in U,\vec w\in U^\perp$
 
 $$
 ⇔ P_U\vec v=\vec u
@@ -222,5 +240,123 @@ $$
 ∀\ \vec v\in V,\vec w\in W,
 \quad \langle T\vec v,\vec w\rangle=\langle \vec v,T^*\vec w\rangle
 $$
+
+- $(S+T)^*=S^*+T^*$
+- $(\lambda T)^*=\bar\lambda T^*$
+- $(T^*)^*$=T$
+- $(ST)^*=T^*S^*$
+- $Null(T^*)=\mathcal R(T)^\perp$
+- $\mathcal R(T^*)=Null(T)^\perp$
+- $Null(T)=\mathcal R(T^*)^\perp$
+- $\mathcal R(T)=(Null(T^*))^\perp$
+- $\mathcal M(T^*,(f_1,\cdots,f_m),(e_1,\cdots,e_n))
+    =\mathcal M(T,(e_1,\cdots,e_n),(f_1,\cdots,f_m))^H$
+    - $(f_1,\cdots,f_m)$ orthonormal basis of $W$
+    - $(e_1,\cdots,e_n)$ orthonormal basis of $V$
+
+#### self-adjoint operator $T$
+
+$$
+T=T^*
+$$
+
+- $A=A^H$
+
+#### Normal Operator $T$
+
+$$
+TT^*=T^*T
+$$
+
+- $T$ self-adjoint $⇒ T$ normal
+- $AA^H=A^HA$
+- $T$ normal $⇔ \lVert Tv\rVert=\lVert T^*v\rVert$
+    - $⇒ Null(T)=Null(T^*),\mathcal R(T)=\mathcal R(T^*)$
+
+### invariant subspace $U$ under $T$
+
+$$
+TU ⊆ U
+$$
+
+- some invariant subspace
+    - $\{0\}$
+    - $V$
+    - $Null(T)$
+    - $\mathcal R(T)$
+
+### eigenvalue $\lambda$ and corresponding eigenvector $\vec v$ for $T\in L(V)$
+
+$$
+T\vec v=\lambda\vec v
+$$
+
+- $T$ has eigenvector $\vec v
+    ⇒ T$ has invariant subspace $U=span(\vec v)$
+- $\vec v\in Null(T-\lambda I)$
+- $\lambda$ is eigenvalue of
+    $T ⇒ (T-\lambda I$ not injective
+    $ ⇔T-\lambda I$ not surjective $)$
+- $∀\ T$ on finite-dimensional, nonzero, complex vector space, $T$ has eigenvalue
+- $\lambda_1,\cdots,\lambda_m$ are distinct eigenvalue,
+    $\vec v_1,\cdots,\vec v_m$ are corresponding eigenvector
+    $⇒ \vec v_1,\cdots,\vec v_m$ linearly independent
+- $T$ has at most $\dim V$ distinct eigenvalue
+- $T$ self-adjoint $⇒$ all eigenvalue real
+- $∀\ \vec v,\langle T\vec v,\vec v\rangle=0 ⇒ T=0$
+- $V$ is complex inner product space
+    $⇒ (T$ self-adjoint $⇔ ∀\ \vec v\in V,\langle T\vec v,\vec v\rangle\in \R)$
+- $T$ normal, $\vec v$ eigenvector with eigenvalue $\lambda$ of $T ⇒ \vec v$
+    eigenvector of $T^*$ with eigenvalue $\bar\lambda$
+
+### spectral theorem
+
+#### complex spectral theorem
+
+$F\in \mathbb C,T\in L(V)\\
+⇒ (T$ normal\
+$⇔ V$ has orthonormal basis consisting of eigenvector of $T\\
+⇔ T$ has diagonal matrix with respect to some orthonormal basis of $V)$
+
+#### real spectral theorem
+
+$F=\R,T\in L(V)\\
+⇒ (T$ self-adjoint\
+$⇔ V$ has orthonormal basis consisting of eigenvector of $T\\
+⇔ T$ has diagonal matrix with respect to some orthonormal basis of $V)$
+
+### positive semidefinite operator $T$
+
+$$
+∀\ \vec v\in V,\langle T\vec v,\vec v\rangle≥0
+$$
+
+- $⇔ T$ self-adjoint and all eigenvalue of $T$ are nonnegative
+- $⇔ T$ has positive semidefinite square root
+- $⇔ T$ has self-adjoint square root
+- $⇔ ∃\ R\in L(V),T=R^*R$
+
+### square root of operation $T$, $R$
+
+$$
+R^2=T
+$$
+
+- positive operator has unique positive square root
+
+### isometry $S$
+
+$$
+∀\ \vec v\in V,\lVert S\vec v\rVert=\lVert \vec v\rVert
+$$
+
+- $⇔ \langle S\vec u,S\vec v\rangle=\langle \vec u,\vec v\rangle$
+- $⇔ S\vec e_1,\cdots,S\vec e_n$ orthonormal for orthonormal
+    $\vec e_1,\cdots,\vec e_n$
+- $⇔ ∃\ \vec e_1,\cdots,\vec e_n$ orthonormal basis,
+    $S\vec e_1,\cdots,S\vec e_n$ orthonormal
+- $⇔ S^*S=I$
+- $⇔ S^*$ isometry
+- $⇔ S$ invertible and $S^{-1}=S^*$
 
 ---
